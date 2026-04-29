@@ -17,15 +17,15 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
         "threat": "T-001-secret-leak"
       },
       {
-        "pattern": "Read(/Users/x/.ssh/**)",
+        "pattern": "Read(/Users/haseebminhas/.ssh/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.aws/credentials)",
+        "pattern": "Read(/Users/haseebminhas/.aws/credentials)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.gnupg/**)",
+        "pattern": "Read(/Users/haseebminhas/.gnupg/**)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -37,7 +37,7 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
         "threat": "T-002-destructive-fs"
       },
       {
-        "pattern": "Bash(rm -rf /Users/x)",
+        "pattern": "Bash(rm -rf /Users/haseebminhas)",
         "threat": "T-002-destructive-fs"
       },
       {
@@ -65,19 +65,19 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
         "threat": "T-004-branch-sabotage"
       },
       {
-        "pattern": "Read(/Users/x/.kube/**)",
+        "pattern": "Read(/Users/haseebminhas/.kube/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.docker/config.json)",
+        "pattern": "Read(/Users/haseebminhas/.docker/config.json)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.netrc)",
+        "pattern": "Read(/Users/haseebminhas/.netrc)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.config/gh/hosts.yml)",
+        "pattern": "Read(/Users/haseebminhas/.config/gh/hosts.yml)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -114,11 +114,11 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
       },
       {
         "pattern": "Edit(*.gitmodules)",
-        "threat": "T-005-supply-chain-submodule"
+        "threat": "T-013-supply-chain-submodule"
       },
       {
         "pattern": "Write(*.gitmodules)",
-        "threat": "T-005-supply-chain-submodule"
+        "threat": "T-013-supply-chain-submodule"
       },
       {
         "pattern": "WebFetch(*pastebin.com*)",
@@ -245,15 +245,15 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
         "threat": "T-001-secret-leak"
       },
       {
-        "pattern": "Read(/Users/x/.ssh/**)",
+        "pattern": "Read(/Users/haseebminhas/.ssh/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.aws/credentials)",
+        "pattern": "Read(/Users/haseebminhas/.aws/credentials)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.gnupg/**)",
+        "pattern": "Read(/Users/haseebminhas/.gnupg/**)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -265,7 +265,7 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
         "threat": "T-002-destructive-fs"
       },
       {
-        "pattern": "Bash(rm -rf /Users/x)",
+        "pattern": "Bash(rm -rf /Users/haseebminhas)",
         "threat": "T-002-destructive-fs"
       },
       {
@@ -293,19 +293,19 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
         "threat": "T-004-branch-sabotage"
       },
       {
-        "pattern": "Read(/Users/x/.kube/**)",
+        "pattern": "Read(/Users/haseebminhas/.kube/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.docker/config.json)",
+        "pattern": "Read(/Users/haseebminhas/.docker/config.json)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.netrc)",
+        "pattern": "Read(/Users/haseebminhas/.netrc)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.config/gh/hosts.yml)",
+        "pattern": "Read(/Users/haseebminhas/.config/gh/hosts.yml)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -342,11 +342,11 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
       },
       {
         "pattern": "Edit(*.gitmodules)",
-        "threat": "T-005-supply-chain-submodule"
+        "threat": "T-013-supply-chain-submodule"
       },
       {
         "pattern": "Write(*.gitmodules)",
-        "threat": "T-005-supply-chain-submodule"
+        "threat": "T-013-supply-chain-submodule"
       },
       {
         "pattern": "WebFetch(*pastebin.com*)",
@@ -473,15 +473,15 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
         "threat": "T-001-secret-leak"
       },
       {
-        "pattern": "Read(/Users/x/.ssh/**)",
+        "pattern": "Read(/Users/haseebminhas/.ssh/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.aws/credentials)",
+        "pattern": "Read(/Users/haseebminhas/.aws/credentials)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.gnupg/**)",
+        "pattern": "Read(/Users/haseebminhas/.gnupg/**)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -493,7 +493,7 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
         "threat": "T-002-destructive-fs"
       },
       {
-        "pattern": "Bash(rm -rf /Users/x)",
+        "pattern": "Bash(rm -rf /Users/haseebminhas)",
         "threat": "T-002-destructive-fs"
       },
       {
@@ -521,19 +521,19 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
         "threat": "T-004-branch-sabotage"
       },
       {
-        "pattern": "Read(/Users/x/.kube/**)",
+        "pattern": "Read(/Users/haseebminhas/.kube/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.docker/config.json)",
+        "pattern": "Read(/Users/haseebminhas/.docker/config.json)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.netrc)",
+        "pattern": "Read(/Users/haseebminhas/.netrc)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.config/gh/hosts.yml)",
+        "pattern": "Read(/Users/haseebminhas/.config/gh/hosts.yml)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -570,11 +570,11 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
       },
       {
         "pattern": "Edit(*.gitmodules)",
-        "threat": "T-005-supply-chain-submodule"
+        "threat": "T-013-supply-chain-submodule"
       },
       {
         "pattern": "Write(*.gitmodules)",
-        "threat": "T-005-supply-chain-submodule"
+        "threat": "T-013-supply-chain-submodule"
       },
       {
         "pattern": "WebFetch(*pastebin.com*)",
