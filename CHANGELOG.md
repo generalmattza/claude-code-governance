@@ -4,6 +4,24 @@ All notable changes to this project will be documented here. Format follows [Kee
 
 ## [Unreleased]
 
+## [0.6.0-beta.0] - 2026-04-29
+
+### Added
+- `packages/plugin/` Claude Code plugin manifest with `/ccsec` slash command (marketplace listing: BITSUMMIT Hardening).
+- `packages/meta/` umbrella package `@bitsummit/claude-code-security` aggregating all sub-packages.
+- `.github/workflows/release.yml` publishing all packages to npm on tag push (skipped if NPM_TOKEN absent).
+- README install instructions for all 3 distribution channels + profile chooser table.
+
+### Changed
+- `ccsec apply` gains `--force` flag (override user-modification guard).
+- `ccsec apply` gains `--rules` flag (install CLAUDE.md template from `@bitsummit/ccsec-rules` for the chosen profile if no CLAUDE.md exists).
+- `ccsec apply` gains `--no-rules` flag (explicit opt-out, since some users may have pre-existing CLAUDE.md they want to preserve unchanged).
+
+### Notes
+- Actual npm publish requires NPM_TOKEN repository secret; the workflow tolerates absence and the user provisions on their schedule.
+- Plugin marketplace listing submission is an Anthropic-side action, not in scope for this plan.
+- Jamf / managed-settings.json deployment still tracked for Plan 7.
+
 ## [0.5.0-beta.0] - 2026-04-29
 
 ### Added
