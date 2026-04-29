@@ -14,17 +14,6 @@ Before declaring `v1.0.0` we need three things that no amount of testing can pro
 
 Plan 10 ships the runbook, RFP, and templates that drive these three actions. The maintainer drives the actions themselves.
 
-## Candidate pilot clients
-
-The pilot client should be drawn from BITSUMMIT's existing engagement pipeline. The parent spec named these candidates:
-
-- **a regulated municipal agency.** Microsoft 365 / Intune shop. Strong MDM posture, regulated content, mid-size dev team. Good fit for the `regulated` profile, weak fit for the macOS Jamf path (their primary endpoints are Windows).
-- **a regional law-enforcement forensics service.** Active engagement. Regulated environment by definition. Will exercise the audit log and tamper-detection paths hardest.
-- **a federally-regulated research organization.** Regulated content (research data, embargoed reports). Mac-heavy fleet; good fit for `installers/macos/jamf/`.
-- **Other (opportunistic).** Any BITSUMMIT client that meets the criteria below and is willing to sign a pilot agreement.
-
-Pick **one** client for v1.0.0. Multiple parallel pilots dilute the signal and make friction-log tracking impossible.
-
 ## Pilot criteria
 
 The pilot client must meet all of:
