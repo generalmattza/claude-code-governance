@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "deny": [
+      { "pattern": "WebFetch(*pastebin.com*)",     "threat": "T-005-network-exfil" },
+      { "pattern": "WebFetch(*paste.ee*)",         "threat": "T-005-network-exfil" },
+      { "pattern": "WebFetch(*requestbin.com*)",   "threat": "T-005-network-exfil" },
+      { "pattern": "WebFetch(*transfer.sh*)",      "threat": "T-005-network-exfil" },
+      { "pattern": "Bash(curl * pastebin.com*)",   "threat": "T-005-network-exfil" },
+      { "pattern": "Bash(curl * transfer.sh*)",    "threat": "T-005-network-exfil" },
+      { "pattern": "Bash(curl https://[0-9]*)",    "threat": "T-005-network-exfil" },
+      { "pattern": "Bash(wget https://[0-9]*)",    "threat": "T-005-network-exfil" }
+    ],
+    "allow": []
+  },
+  "audit": {
+    "egress_allowlist": [
+      "docs.anthropic.com",
+      "github.com",
+      "raw.githubusercontent.com",
+      "api.github.com",
+      "developer.mozilla.org",
+      "nodejs.org",
+      "registry.npmjs.org",
+      "pypi.org"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      { "name": "webfetch-egress-guard" },
+      { "name": "bash-egress-guard" }
+    ]
+  }
+}

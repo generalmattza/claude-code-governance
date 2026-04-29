@@ -1,0 +1,13 @@
+{
+  "audit": {
+    "verify_on_session_start": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      { "name": "audit-tamper-detector" }
+    ],
+    "SubagentStop": [
+      { "name": "audit-session-summary" }
+    ]
+  }
+}
