@@ -62,6 +62,15 @@ importers:
 
   packages/settings: {}
 
+  tests/integration:
+    devDependencies:
+      '@bitsummit/ccsec-core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@bitsummit/ccsec-hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
+
 packages:
 
   '@ampproject/remapping@2.3.0':

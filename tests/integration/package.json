@@ -1,0 +1,10 @@
+{
+  "name": "ccsec-integration-tests",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@bitsummit/ccsec-core": "workspace:*",
+    "@bitsummit/ccsec-hooks": "workspace:*"
+  }
+}
