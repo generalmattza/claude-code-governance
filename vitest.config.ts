@@ -14,7 +14,15 @@ export default defineConfig({
         statements: 90,
       },
       include: ['packages/*/src/**/*.ts'],
-      exclude: ['**/dist/**', '**/*.test.ts', '**/types.ts'],
+      exclude: [
+        '**/dist/**',
+        '**/*.test.ts',
+        '**/types.ts',
+        // CLI entrypoint and barrel exports are exercised end-to-end via integration tests
+        // and manual smoke runs; unit-test coverage of pure wiring/re-exports is low value.
+        'packages/cli/src/index.ts',
+        'packages/core/src/index.ts',
+      ],
     },
     include: ['packages/**/*.test.ts', 'tests/**/*.test.ts'],
   },
