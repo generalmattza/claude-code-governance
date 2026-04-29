@@ -60,7 +60,7 @@ For the full list with vector / detection status / recommended response, see [`d
 
 ## Install
 
-### Channel 1: Claude Code Plugin (recommended for individual devs)
+### Channel 1: Claude Code Plugin (recommended for individual devs) - Not Published Yet (ETA 6 - May 29th, 2026)
 
 ```
 /plugin install bitsummit/hardening
