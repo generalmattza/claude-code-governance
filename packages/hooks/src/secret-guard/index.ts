@@ -1,7 +1,7 @@
 import type { HookModule, HookContext, HookDecision } from '@bitsummit/ccsec-core';
 import { detectSecrets } from '@bitsummit/ccsec-core';
 
-const ENV_DUMP_RE = /\b(?:printenv|env)\b\s+([A-Z_][A-Z0-9_]*)?/;
+const ENV_DUMP_RE = /\b(?:printenv|env)\b(?:\s+([A-Z_][A-Z0-9_]*))?/;
 const SECRET_ENV_NAMES = /(SECRET|TOKEN|PASSWORD|API_KEY|PRIVATE_KEY|CREDENTIAL)/;
 const ECHO_VAR_RE = /\becho\s+["']?\$\{?([A-Z_][A-Z0-9_]*)/;
 

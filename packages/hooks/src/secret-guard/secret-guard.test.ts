@@ -33,6 +33,15 @@ describe('secret-guard hook', () => {
     const r = await secretGuard.run(ctx({ command: 'printenv AWS_SECRET_ACCESS_KEY' }));
     expect(r.decision).toBe('block');
   });
+  it('blocks bare env command (full environment dump)', async () => {
+    const r = await secretGuard.run(ctx({ command: 'env' }));
+    expect(r.decision).toBe('block');
+    expect(r.reason).toMatch(/env-dump/);
+  });
+  it('blocks bare printenv command', async () => {
+    const r = await secretGuard.run(ctx({ command: 'printenv' }));
+    expect(r.decision).toBe('block');
+  });
   it('handles non-string input gracefully', async () => {
     expect((await secretGuard.run(ctx({ command: 12345 as never }))).decision).toBe('allow');
   });
