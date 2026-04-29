@@ -1,0 +1,13 @@
+{
+  "name": "mdm-bypass-attempt",
+  "events": [
+    {
+      "tool": "session",
+      "event": "SessionStart",
+      "input": {}
+    }
+  ],
+  "expected_baseline": { "decision": "warn", "warnedBy": "disable-all-hooks-detector" },
+  "expected_regulated": { "decision": "warn", "warnedBy": "disable-all-hooks-detector" },
+  "notes": "settings.local.json with disableAllHooks=true is detected as MDM bypass. Per ADR-0003 the hook is passive (audit-only); severity is warn on all profiles. local-settings-precedence-checker also fires (warn baseline/strict, block regulated)."
+}

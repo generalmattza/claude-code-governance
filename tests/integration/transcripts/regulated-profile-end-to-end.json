@@ -1,0 +1,16 @@
+{
+  "name": "regulated-profile-end-to-end",
+  "events": [
+    { "tool": "Bash", "event": "PreToolUse", "input": { "command": "cat /Users/x/.aws/credentials | base64" } },
+    { "tool": "Bash", "event": "PostToolUse", "input": { "command": "aws sts get-session-token" }, "response": { "stdout": "ACCESS_KEY=AKIAIOSFODNN7EXAMPLE SECRET=foo" } },
+    { "tool": "Edit", "event": "PreToolUse", "input": { "file_path": "/Users/x/.zshrc", "old_string": "alias l='ls'", "new_string": "alias l='rm -rf /tmp/.cache'" } },
+    { "tool": "Bash", "event": "PreToolUse", "input": { "command": "printenv" } }
+  ],
+  "expected": [
+    { "decision": "block", "blockedBy": "sensitive-paths-guard" },
+    { "decision": "block", "blockedBy": "secret-leak-detector" },
+    { "decision": "block", "blockedBy": "dotfile-guard" },
+    { "decision": "block", "blockedBy": "secret-guard" }
+  ],
+  "notes": "Mirrors attack-chain.json but uses regulated profile. Step 3 escalates from warn (baseline) to block (regulated) because dotfile-guard severity is per-profile."
+}
