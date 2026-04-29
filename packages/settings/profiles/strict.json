@@ -1,1 +1,24 @@
-{ "extends": ["base", "overlays/secrets", "overlays/destructive", "overlays/sensitive-paths", "overlays/bash-structural", "overlays/branch-guards", "overlays/network-egress", "overlays/audit"], "overrides": {} }
+{
+  "extends": [
+    "base",
+    "overlays/secrets",
+    "overlays/destructive",
+    "overlays/sensitive-paths",
+    "overlays/bash-structural",
+    "overlays/branch-guards",
+    "overlays/network-egress",
+    "overlays/audit",
+    "overlays/behavioral",
+    "overlays/agent-gating"
+  ],
+  "overrides": {
+    "audit": {
+      "egress_allowlist": [
+        "docs.anthropic.com",
+        "github.com",
+        "registry.npmjs.org",
+        "pypi.org"
+      ]
+    }
+  }
+}

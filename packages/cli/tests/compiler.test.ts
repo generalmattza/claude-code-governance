@@ -59,7 +59,13 @@ describe('compileProfile', () => {
     const out = await compileProfile({ settingsRoot: root, profile: 'baseline', os: 'macos' });
     expect(out.audit).toEqual({ egress_allowlist: ['github.com', 'pypi.org'] });
   });
-  it('overrides.audit REPLACES audit value from extends', async () => {
+  it('overrides.audit REPLACES audit sub-keys but preserves untouched siblings', async () => {
+    await writeFile(join(root, 'base.json'), JSON.stringify({
+      schema: 1,
+      permissions: { deny: [] },
+      hooks: {},
+      audit: { log_path: '/tmp/x.jsonl' },
+    }));
     await writeFile(join(root, 'overlays', 'audit.json'), JSON.stringify({
       audit: { egress_allowlist: ['a.example', 'b.example', 'c.example'] },
       hooks: {},
@@ -69,6 +75,35 @@ describe('compileProfile', () => {
       overrides: { audit: { egress_allowlist: ['a.example'] } },
     }));
     const out = await compileProfile({ settingsRoot: root, profile: 'strict', os: 'macos' });
-    expect(out.audit).toEqual({ egress_allowlist: ['a.example'] });
+    // egress_allowlist replaced by override
+    expect((out.audit as { egress_allowlist: string[] }).egress_allowlist).toEqual(['a.example']);
+    // log_path from base.json preserved (override didn't touch it)
+    expect((out.audit as { log_path: string }).log_path).toBe('/tmp/x.jsonl');
+  });
+  it('extends fragments deep-merge into top-level objects', async () => {
+    await writeFile(join(root, 'base.json'), JSON.stringify({
+      schema: 1,
+      permissions: { deny: [] },
+      hooks: {},
+      audit: { log_path: '/tmp/x.jsonl' },
+    }));
+    await writeFile(join(root, 'overlays', 'audit.json'), JSON.stringify({
+      audit: { verify_on_session_start: true },
+      hooks: {},
+    }));
+    await writeFile(join(root, 'overlays', 'egress.json'), JSON.stringify({
+      audit: { egress_allowlist: ['github.com'] },
+      hooks: {},
+    }));
+    await writeFile(join(root, 'profiles', 'baseline.json'), JSON.stringify({
+      extends: ['base', 'overlays/audit', 'overlays/egress'],
+      overrides: {},
+    }));
+    const out = await compileProfile({ settingsRoot: root, profile: 'baseline', os: 'macos' });
+    expect(out.audit).toEqual({
+      log_path: '/tmp/x.jsonl',
+      verify_on_session_start: true,
+      egress_allowlist: ['github.com'],
+    });
   });
 });

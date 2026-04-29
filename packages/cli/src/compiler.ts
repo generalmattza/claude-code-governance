@@ -21,6 +21,10 @@ async function readJson<T>(path: string): Promise<T> {
   return JSON.parse(await readFile(path, 'utf8')) as T;
 }
 
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
 function mergeFragments(target: SettingsFragment, source: SettingsFragment): void {
   if (source.permissions?.deny) {
     target.permissions ??= {};
@@ -39,17 +43,36 @@ function mergeFragments(target: SettingsFragment, source: SettingsFragment): voi
     }
   }
   for (const k of Object.keys(source)) {
-    if (k !== 'permissions' && k !== 'hooks' && !(k in target)) target[k] = source[k];
+    if (k === 'permissions' || k === 'hooks') continue;
+    const sv = source[k];
+    const tv = target[k];
+    if (isPlainObject(sv) && isPlainObject(tv)) {
+      // Deep-merge plain objects so extends fragments can each contribute
+      // siblings into the same top-level key (audit.log_path,
+      // audit.egress_allowlist, audit.verify_on_session_start).
+      target[k] = { ...tv, ...sv };
+    } else if (!(k in target)) {
+      target[k] = sv;
+    }
   }
 }
 
-// Recursively replace top-level keys that overrides explicitly sets.
-// Used after extends-merge so a profile's overrides.audit can REPLACE
-// the merged value coming from extends fragments.
-function replaceTopLevelFromOverrides(target: SettingsFragment, overrides: SettingsFragment): void {
+// Apply overrides to non-permission/non-hook top-level keys.
+// Sub-keys explicitly set by overrides REPLACE the merged extends value
+// (so strict/regulated can tighten audit.egress_allowlist), while
+// sub-keys not mentioned by the override are preserved (so audit.log_path
+// from base.json survives even when overrides.audit only sets
+// egress_allowlist).
+function applyTopLevelOverrides(target: SettingsFragment, overrides: SettingsFragment): void {
   for (const k of Object.keys(overrides)) {
     if (k === 'permissions' || k === 'hooks') continue;
-    target[k] = overrides[k];
+    const ov = overrides[k];
+    const tv = target[k];
+    if (isPlainObject(ov) && isPlainObject(tv)) {
+      target[k] = { ...tv, ...ov };
+    } else {
+      target[k] = ov;
+    }
   }
 }
 
@@ -69,11 +92,13 @@ export async function compileProfile(opts: CompileOptions): Promise<SettingsFrag
     // permissions and hooks accumulate (defense-in-depth): a profile can add
     // additional denies / hook references on top of extends fragments.
     mergeFragments(merged, overrides);
-    // Other top-level keys (audit, schema, etc.) REPLACE: the profile's
-    // override is the final authoritative value for that key. This lets
+    // Other top-level keys (audit, schema, etc.) get a shallow REPLACE
+    // at the sub-key level: explicitly set sub-keys win, untouched
+    // sub-keys (like audit.log_path from base.json) survive. This lets
     // strict and regulated tighten audit.egress_allowlist past what the
-    // network-egress overlay defines.
-    replaceTopLevelFromOverrides(merged, overrides);
+    // network-egress overlay defines without forcing them to restate
+    // audit.log_path or audit.verify_on_session_start.
+    applyTopLevelOverrides(merged, overrides);
   }
 
   const env = opts.env ?? (process.env as Record<string, string>);

@@ -14,15 +14,15 @@
         "threat": "T-001-secret-leak"
       },
       {
-        "pattern": "Read(/Users/haseebminhas/.ssh/**)",
+        "pattern": "Read(/Users/x/.ssh/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/haseebminhas/.aws/credentials)",
+        "pattern": "Read(/Users/x/.aws/credentials)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/haseebminhas/.gnupg/**)",
+        "pattern": "Read(/Users/x/.gnupg/**)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -34,7 +34,7 @@
         "threat": "T-002-destructive-fs"
       },
       {
-        "pattern": "Bash(rm -rf /Users/haseebminhas)",
+        "pattern": "Bash(rm -rf /Users/x)",
         "threat": "T-002-destructive-fs"
       },
       {
@@ -62,19 +62,19 @@
         "threat": "T-004-branch-sabotage"
       },
       {
-        "pattern": "Read(/Users/haseebminhas/.kube/**)",
+        "pattern": "Read(/Users/x/.kube/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/haseebminhas/.docker/config.json)",
+        "pattern": "Read(/Users/x/.docker/config.json)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/haseebminhas/.netrc)",
+        "pattern": "Read(/Users/x/.netrc)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/haseebminhas/.config/gh/hosts.yml)",
+        "pattern": "Read(/Users/x/.config/gh/hosts.yml)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -206,10 +206,21 @@
       },
       {
         "name": "audit-tamper-detector"
+      },
+      {
+        "name": "untrusted-content-tagger"
       }
     ],
-    "UserPromptSubmit": [],
-    "SessionStart": [],
+    "UserPromptSubmit": [
+      {
+        "name": "behavioral-rule-enforcer"
+      }
+    ],
+    "SessionStart": [
+      {
+        "name": "claude-md-validator"
+      }
+    ],
     "SubagentStop": [
       {
         "name": "audit-session-summary"
@@ -219,6 +230,17 @@
   "schema": 1,
   "ccsec_version": "0.1.0-alpha.0",
   "audit": {
-    "log_path": "${HOME}/.claude/ccsec-audit.jsonl"
+    "log_path": "${HOME}/.claude/ccsec-audit.jsonl",
+    "egress_allowlist": [
+      "docs.anthropic.com",
+      "github.com",
+      "raw.githubusercontent.com",
+      "api.github.com",
+      "developer.mozilla.org",
+      "nodejs.org",
+      "registry.npmjs.org",
+      "pypi.org"
+    ],
+    "verify_on_session_start": true
   }
 }
