@@ -3,5 +3,8 @@
   "version": "0.1.0-alpha.0",
   "type": "module",
   "files": ["base.json", "overlays", "profiles", "compiled"],
-  "scripts": { "typecheck": "echo no ts in this package" }
+  "scripts": {
+    "typecheck": "echo no ts in this package",
+    "test": "vitest run"
+  }
 }
