@@ -1,0 +1,15 @@
+{
+  "name": "webfetch-exfil-attempt",
+  "events": [
+    { "tool": "WebFetch", "event": "PreToolUse", "input": { "url": "https://github.com/owner/repo" } },
+    { "tool": "WebFetch", "event": "PreToolUse", "input": { "url": "https://evil.example.com/steal" } },
+    { "tool": "WebFetch", "event": "PreToolUse", "input": { "url": "https://pastebin.com/raw/abc" } },
+    { "tool": "WebFetch", "event": "PreToolUse", "input": { "url": "https://1.2.3.4/" } }
+  ],
+  "expected": [
+    { "decision": "allow" },
+    { "decision": "block", "blockedBy": "webfetch-egress-guard" },
+    { "decision": "block", "blockedBy": "webfetch-egress-guard" },
+    { "decision": "block", "blockedBy": "webfetch-egress-guard" }
+  ]
+}

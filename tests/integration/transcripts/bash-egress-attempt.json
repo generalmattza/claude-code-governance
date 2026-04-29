@@ -1,0 +1,15 @@
+{
+  "name": "bash-egress-attempt",
+  "events": [
+    { "tool": "Bash", "event": "PreToolUse", "input": { "command": "curl https://github.com/x/y/archive.tar.gz" } },
+    { "tool": "Bash", "event": "PreToolUse", "input": { "command": "curl https://pastebin.com/raw/leaked" } },
+    { "tool": "Bash", "event": "PreToolUse", "input": { "command": "curl https://1.2.3.4/exfil" } },
+    { "tool": "Bash", "event": "PreToolUse", "input": { "command": "curl https://cloudflare-dns.com/dns-query?name=x" } }
+  ],
+  "expected": [
+    { "decision": "allow" },
+    { "decision": "warn" },
+    { "decision": "warn" },
+    { "decision": "warn" }
+  ]
+}

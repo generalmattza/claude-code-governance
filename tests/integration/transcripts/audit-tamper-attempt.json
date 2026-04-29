@@ -1,0 +1,11 @@
+{
+  "name": "audit-tamper-attempt",
+  "events": [
+    { "tool": "Bash", "event": "PostToolUse", "input": { "command": "ls" }, "response": { "stdout": "a\nb\n" } },
+    { "tool": "Bash", "event": "PostToolUse", "input": { "command": "pwd" }, "response": { "stdout": "/tmp\n" } }
+  ],
+  "expected": [
+    { "decision": "allow" },
+    { "decision": "warn" }
+  ]
+}
