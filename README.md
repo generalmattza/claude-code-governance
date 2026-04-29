@@ -6,7 +6,7 @@ Open-source hardening reference for Anthropic's Claude Code. Ships hooks, layere
 
 ## Status
 
-This repo is on a 10-plan path to `v1.0.0`. We are currently shipping **Plan 6 of 10** (plugin + npm distribution). See `docs/superpowers/plans/` for the full sequence.
+This repo is on a 10-plan path to `v1.0.0`. We are currently shipping **Plan 7 of 10** (Jamf MDM + tamper detection). See `docs/superpowers/plans/` for the full sequence.
 
 ## Install
 
@@ -31,6 +31,8 @@ git clone https://github.com/Bitsummit-Corp/claude-code-security.git
 cd claude-code-security
 ./installers/macos/install.sh --profile baseline
 ```
+
+For Jamf-managed fleets, use the Configuration Profile template at `installers/macos/jamf/com.bitsummit.claude-code-security.mobileconfig.xml` together with `installers/macos/install-managed.sh` (sudo, root-owned, immutable) and `installers/macos/verify-managed.sh` (tamper detection). See [docs/deployment/mdm-jamf.md](./docs/deployment/mdm-jamf.md) for the full IT-admin workflow.
 
 ## Profile Chooser
 

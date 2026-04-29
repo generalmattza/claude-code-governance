@@ -4,6 +4,23 @@ All notable changes to this project will be documented here. Format follows [Kee
 
 ## [Unreleased]
 
+## [0.7.0-beta.0] - 2026-04-29
+
+### Added
+- `installers/macos/jamf/com.bitsummit.claude-code-security.mobileconfig.xml`: Jamf Configuration Profile template (Custom Settings payload) for fleet deployment of `managed-settings.json`.
+- `installers/macos/jamf/README.md`: admin workflow for importing the profile, scoping a smart group, populating the base64 payload, and running verification.
+- `installers/macos/install-managed.sh`: sudo-only installer that compiles the chosen profile and writes `/Library/Application Support/ClaudeCode/managed-settings.json` as `root:wheel`, mode `0644`, with `chflags uchg` immutability and a `.ccsec-manifest` recording sha256.
+- `installers/macos/verify-managed.sh`: tamper-detection verifier. Re-hashes the deployed file, compares against the manifest, warns if the immutable flag is missing. Exit code 2 on mismatch.
+- `docs/deployment/mdm-jamf.md`: end-to-end IT-admin deployment guide covering compile, profile import, scoping, verification, periodic compliance checks, and tamper response.
+
+### Changed
+- README install section now references the Jamf profile template + deployment guide as the path for MDM admins.
+
+### Notes
+- `install-managed.sh` and `verify-managed.sh` require sudo and the `/Library/Application Support` system path; they are intentionally NOT exercised by the bats suite (which runs unprivileged). The bats suite continues to cover the per-user installer (`install.sh` + `verify.sh`).
+- Intune / Workspace ONE / Kandji equivalents are out of scope; tracked for a future plan.
+- Signed releases / SBOM / GHSA workflow still tracked for Plan 9.
+
 ## [0.6.0-beta.0] - 2026-04-29
 
 ### Added
