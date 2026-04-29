@@ -14,4 +14,4 @@ MIT. See [LICENSE](./LICENSE).
 
 ## Security
 
-Report vulnerabilities to `security@bitsummit.ca`. See [SECURITY.md](./SECURITY.md).
+Report vulnerabilities to `security@bitsummit.com`. See [SECURITY.md](./SECURITY.md).

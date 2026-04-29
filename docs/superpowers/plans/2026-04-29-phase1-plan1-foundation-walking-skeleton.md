@@ -2125,7 +2125,7 @@ git add -A && git commit -m "feat(installers): macOS install.sh + verify.sh with
 
 ## Reporting a Vulnerability
 
-Email `security@bitsummit.ca` (PGP key fingerprint pending; generation tracked for Plan 9). Please do not file public GitHub issues for vulnerabilities.
+Email `security@bitsummit.com` (PGP key fingerprint pending; generation tracked for Plan 9). Please do not file public GitHub issues for vulnerabilities.
 
 We aim to acknowledge reports within 72 hours, triage within 14 days for HIGH severity, and 30 days for MEDIUM. Default disclosure window is 90 days.
 

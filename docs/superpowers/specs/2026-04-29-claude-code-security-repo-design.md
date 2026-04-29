@@ -233,7 +233,7 @@ Admins clone, run `ccsec compile --profile regulated --target managed`, get a si
 ### Release engineering
 
 - Tagged releases produce: signed npm package, plugin tarball, `ccsec` standalone binaries (Node SEA: macOS arm64+x64, Windows x64, Linux x64), SHA-256 manifest signed with the org's release key.
-- `SECURITY.md` defines a 90-day disclosure window with `security@bitsummit.ca` and a public PGP key.
+- `SECURITY.md` defines a 90-day disclosure window with `security@bitsummit.com` and a public PGP key.
 - CI publishes a CycloneDX SBOM per release.
 
 ---
@@ -334,7 +334,7 @@ Reader: future maintainer, contributor, security researcher.
 
 - ADRs documenting why Node, why monorepo, why passive-only, why deny-by-default WebFetch, why no auto-remediation, etc.
 - `CHANGELOG.md` follows Keep a Changelog
-- `SECURITY.md` defines disclosure: 90-day window, `security@bitsummit.ca`, PGP key, hall-of-thanks for verified reports
+- `SECURITY.md` defines disclosure: 90-day window, `security@bitsummit.com`, PGP key, hall-of-thanks for verified reports
 
 ### Cross-cutting docs hygiene
 
@@ -434,7 +434,7 @@ Cron-scheduled job pulls latest published prompt-injection corpora, runs them ag
 
 ### Disclosure & advisory pipeline
 
-- `SECURITY.md` channel: `security@bitsummit.ca` with PGP, plus GitHub Security Advisories
+- `SECURITY.md` channel: `security@bitsummit.com` with PGP, plus GitHub Security Advisories
 - 90-day default disclosure window, negotiable
 - Shipped advisories cross-link threat ID, regression test added, affected profiles
 - Automated GHSA generation on tagged security patches
