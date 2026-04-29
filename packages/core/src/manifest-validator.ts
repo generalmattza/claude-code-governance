@@ -8,6 +8,15 @@ export class ManifestError extends Error {
   }
 }
 
+const SeverityScalar = z.enum(['block', 'warn', 'log']);
+const SeverityRecord = z
+  .object({
+    baseline: SeverityScalar,
+    strict: SeverityScalar,
+    regulated: SeverityScalar,
+  })
+  .strict();
+
 const ManifestSchema = z.object({
   name: z.string().regex(/^[a-z][a-z0-9-]*$/),
   event: z.enum([
@@ -21,7 +30,7 @@ const ManifestSchema = z.object({
   matchers: z.array(z.string().min(1)).min(1),
   threat: z.string().regex(/^T-\d{3}-[a-z0-9-]+$/),
   profiles: z.array(z.enum(['baseline', 'strict', 'regulated'])).min(1),
-  severity: z.enum(['block', 'warn', 'log']),
+  severity: z.union([SeverityScalar, SeverityRecord]),
   timeout_ms: z.number().int().min(100).max(30000),
 });
 

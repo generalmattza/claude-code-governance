@@ -47,4 +47,23 @@ describe('validateManifest', () => {
       expect(String(e)).toMatch(/severity/);
     }
   });
+
+  it('accepts severity as a per-profile record', () => {
+    const m = { ...valid, severity: { baseline: 'warn', strict: 'block', regulated: 'block' } };
+    expect(() => validateManifest(m)).not.toThrow();
+  });
+  it('rejects severity record with unknown profile', () => {
+    const m = { ...valid, severity: { baseline: 'warn', martian: 'block' } };
+    expect(() => validateManifest(m)).toThrow(ManifestError);
+  });
+  it('rejects severity record with unknown level', () => {
+    const m = { ...valid, severity: { baseline: 'panic', strict: 'block', regulated: 'block' } };
+    expect(() => validateManifest(m)).toThrow(ManifestError);
+  });
+  it("accepts wildcard matcher '*'", () => {
+    expect(() => validateManifest({ ...valid, matchers: ['*'] })).not.toThrow();
+  });
+  it("accepts prefix-wildcard matcher 'mcp__*'", () => {
+    expect(() => validateManifest({ ...valid, matchers: ['mcp__*'] })).not.toThrow();
+  });
 });

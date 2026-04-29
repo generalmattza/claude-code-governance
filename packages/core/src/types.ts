@@ -9,6 +9,7 @@ export type HookEvent =
 export type HookSeverity = 'block' | 'warn' | 'log';
 export type HookProfile = 'baseline' | 'strict' | 'regulated';
 export type HookDecisionKind = 'allow' | 'block' | 'warn';
+export type ProfileSeverity = HookSeverity | Record<HookProfile, HookSeverity>;
 
 export interface HookManifest {
   name: string;
@@ -16,13 +17,14 @@ export interface HookManifest {
   matchers: string[];
   threat: string;
   profiles: HookProfile[];
-  severity: HookSeverity;
+  severity: ProfileSeverity;
   timeout_ms: number;
 }
 
 export interface HookContext {
   tool: string;
   input: Record<string, unknown>;
+  response?: { stdout?: string; stderr?: string; output?: unknown; [k: string]: unknown };
   env: Readonly<Record<string, string>>;
   paths: { home: string; ssh: string; aws: string; tmp: string };
   log: (msg: string) => void;
