@@ -39,14 +39,3 @@ export interface HookModule {
   manifest: HookManifest;
   run: (ctx: HookContext) => Promise<HookDecision>;
 }
-
-export interface AuditRecord {
-  ts: string;
-  hook: string;
-  tool: string;
-  decision: HookDecisionKind | 'timeout' | 'error';
-  reason: string;
-  duration_ms: number;
-  prev_hash?: string;
-  hash: string;
-}
