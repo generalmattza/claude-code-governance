@@ -29,9 +29,26 @@ export async function main(argv: string[]): Promise<void> {
     .option('--os <os>', detectOs())
     .option('--settings-root <path>', 'path to packages/settings', SETTINGS_ROOT_DEFAULT)
     .option('--dry-run', '', false)
+    .option('--force', 'override clobber guard', false)
+    .option('--rules', 'install CLAUDE.md template', false)
+    .option('--no-rules', 'skip CLAUDE.md template')
     .action(async (opts) => {
-      const r = await applyCommand({ settingsRoot: opts.settingsRoot, profile: opts.profile, claudeDir: opts.claudeDir, os: opts.os, dryRun: !!opts.dryRun });
-      console.log(r.wrote ? `applied ${opts.profile} -> ${opts.claudeDir}/settings.json` : 'dry-run, nothing written');
+      const installRules = opts.rules === true;
+      const r = await applyCommand({
+        settingsRoot: opts.settingsRoot,
+        profile: opts.profile,
+        claudeDir: opts.claudeDir,
+        os: opts.os,
+        dryRun: !!opts.dryRun,
+        force: !!opts.force,
+        installRules,
+      });
+      if (r.wrote) {
+        console.log(`applied ${opts.profile} -> ${opts.claudeDir}/settings.json`);
+        if (r.rulesInstalled) console.log(`installed CLAUDE.md template -> ${opts.claudeDir}/CLAUDE.md`);
+      } else {
+        console.log('dry-run, nothing written');
+      }
     });
 
   program.command('doctor')

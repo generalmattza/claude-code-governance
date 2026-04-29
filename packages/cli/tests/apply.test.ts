@@ -35,4 +35,34 @@ describe('apply command', () => {
     await writeFile(join(claudeDir, 'settings.json'), '{ "permissions": { "deny": [] } }');
     await expect(applyCommand({ settingsRoot: join(root, 'settings'), profile: 'baseline', claudeDir, os: 'macos', env: { HOME: '/Users/x' }, dryRun: false })).rejects.toThrow(/modified/);
   });
+  it('force=true overrides the user-modification clobber guard', async () => {
+    await applyCommand({ settingsRoot: join(root, 'settings'), profile: 'baseline', claudeDir, os: 'macos', env: { HOME: '/Users/x' }, dryRun: false });
+    await writeFile(join(claudeDir, 'settings.json'), '{ "permissions": { "deny": [] } }');
+    const r = await applyCommand({ settingsRoot: join(root, 'settings'), profile: 'baseline', claudeDir, os: 'macos', env: { HOME: '/Users/x' }, dryRun: false, force: true });
+    expect(r.wrote).toBe(true);
+    const settings = JSON.parse(await readFile(join(claudeDir, 'settings.json'), 'utf8'));
+    expect(settings.permissions.deny[0].pattern).toBe('Bash(env)');
+  });
+  it('installRules=true creates CLAUDE.md from the template', async () => {
+    const rulesRoot = join(root, 'rules-templates');
+    await mkdir(rulesRoot, { recursive: true });
+    await writeFile(join(rulesRoot, 'baseline.md'), '# Baseline rules\n- never echo secrets\n');
+    const r = await applyCommand({ settingsRoot: join(root, 'settings'), profile: 'baseline', claudeDir, os: 'macos', env: { HOME: '/Users/x' }, dryRun: false, installRules: true, rulesRoot });
+    expect(r.wrote).toBe(true);
+    expect(r.rulesInstalled).toBe(true);
+    const claudeMd = await readFile(join(claudeDir, 'CLAUDE.md'), 'utf8');
+    expect(claudeMd).toContain('# Baseline rules');
+  });
+  it('installRules=true does not overwrite an existing CLAUDE.md', async () => {
+    const rulesRoot = join(root, 'rules-templates');
+    await mkdir(rulesRoot, { recursive: true });
+    await writeFile(join(rulesRoot, 'baseline.md'), '# Baseline rules\n- never echo secrets\n');
+    await mkdir(claudeDir, { recursive: true });
+    await writeFile(join(claudeDir, 'CLAUDE.md'), '# user content\nkeep me\n');
+    const r = await applyCommand({ settingsRoot: join(root, 'settings'), profile: 'baseline', claudeDir, os: 'macos', env: { HOME: '/Users/x' }, dryRun: false, installRules: true, rulesRoot });
+    expect(r.wrote).toBe(true);
+    expect(r.rulesInstalled).toBe(false);
+    const claudeMd = await readFile(join(claudeDir, 'CLAUDE.md'), 'utf8');
+    expect(claudeMd).toBe('# user content\nkeep me\n');
+  });
 });
