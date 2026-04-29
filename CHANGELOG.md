@@ -4,6 +4,26 @@ All notable changes to this project will be documented here. Format follows [Kee
 
 ## [Unreleased]
 
+## [0.3.0-alpha.0] - 2026-04-29
+
+### Added
+- 6 new hooks: `bash-structural-guard`, `pipe-to-shell-guard`, `branch-protection-guard`, `commit-amend-pushed-guard`, `submodule-injection-guard`, `git-history-rewrite-guard`.
+- New overlays: `overlays/bash-structural.json` and `overlays/branch-guards.json`.
+- `fast-check` property-based fuzz test for `bash-parser`.
+- Integration transcripts: bash-structural-attempt, branch-sabotage-attempt, history-rewrite-attempt.
+- Threat model entries: T-005 Supply Chain via Submodule, T-006 Pipe-to-Shell Remote Execution, T-007 Command Chaining Bypass, T-008 Git History Rewrite, T-009 Arbitrary Code via eval/command substitution.
+
+### Changed
+- Bash parser detects fullwidth pipe (U+FF5C) and fullwidth dollar (U+FF04) as unicode lookalikes.
+- Bash parser detects `&` (background operator) as a new structural risk kind.
+- T-004 marked fully covered (was partial in Plan 2).
+- All 3 profiles extend the new overlays.
+
+### Notes
+- Audit-logger concurrency hardening still tracked for Plan 4.
+- Egress / WebFetch allowlist still tracked for Plan 4.
+- Strict / regulated profile differentiation still tracked for Plan 5.
+
 ## [0.2.0-alpha.0] - 2026-04-29
 
 ### Added
