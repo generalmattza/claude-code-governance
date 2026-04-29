@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "deny": [
+      { "pattern": "Bash(git filter-branch *)",      "threat": "T-008-history-rewrite" },
+      { "pattern": "Bash(git filter-repo *)",        "threat": "T-008-history-rewrite" },
+      { "pattern": "Edit(*.gitmodules)",             "threat": "T-005-supply-chain-submodule" },
+      { "pattern": "Write(*.gitmodules)",            "threat": "T-005-supply-chain-submodule" }
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      { "name": "branch-protection-guard" },
+      { "name": "commit-amend-pushed-guard" },
+      { "name": "submodule-injection-guard" },
+      { "name": "git-history-rewrite-guard" }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "deny": [
+      { "pattern": "Bash(curl * | sh)",       "threat": "T-006-pipe-to-shell" },
+      { "pattern": "Bash(curl * | bash)",     "threat": "T-006-pipe-to-shell" },
+      { "pattern": "Bash(wget * | sh)",       "threat": "T-006-pipe-to-shell" },
+      { "pattern": "Bash(wget * | bash)",     "threat": "T-006-pipe-to-shell" }
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      { "name": "bash-structural-guard" },
+      { "name": "pipe-to-shell-guard" }
+    ]
+  }
+}
