@@ -19,6 +19,51 @@ const slowHook: HookModule = {
 };
 const wrongMatcher: HookModule = { ...allowHook, manifest: { ...allowHook.manifest, name: 'edit-only', matchers: ['Edit'] } };
 
+const profileSeverityHook: HookModule = {
+  manifest: {
+    name: 'profile-severity',
+    event: 'PreToolUse',
+    matchers: ['Bash'],
+    threat: 'T-002-profile-severity',
+    profiles: ['baseline', 'strict', 'regulated'],
+    severity: { baseline: 'warn', strict: 'block', regulated: 'block' },
+    timeout_ms: 1000,
+  },
+  run: async () => ({ decision: 'block', reason: 'profile-severity-trigger' }),
+};
+
+const wildcardHook: HookModule = {
+  manifest: {
+    name: 'wildcard-mcp',
+    event: 'PreToolUse',
+    matchers: ['mcp__*'],
+    threat: 'T-003-mcp-wildcard',
+    profiles: ['baseline'],
+    severity: 'block',
+    timeout_ms: 1000,
+  },
+  run: async () => ({ decision: 'block', reason: 'mcp blocked' }),
+};
+
+const postUseHook: HookModule = {
+  manifest: {
+    name: 'post-use-leak',
+    event: 'PostToolUse',
+    matchers: ['Bash'],
+    threat: 'T-004-leak',
+    profiles: ['baseline'],
+    severity: 'block',
+    timeout_ms: 1000,
+  },
+  run: async (ctx) => {
+    const stdout = ctx.response?.stdout ?? '';
+    if (typeof stdout === 'string' && stdout.includes('LEAKED')) {
+      return { decision: 'block', reason: 'leak detected in stdout' };
+    }
+    return { decision: 'allow', reason: 'clean' };
+  },
+};
+
 let auditPath: string;
 beforeEach(async () => {
   auditPath = join(await mkdtemp(join(tmpdir(), 'ccsec-runner-')), 'audit.jsonl');
@@ -61,5 +106,35 @@ describe('runHooks', () => {
     const r = await runHooks({ hooks: [blockHook, allowHook], profile: 'baseline', auditLogPath: auditPath },
       { tool: 'Bash', input: {}, event: 'PreToolUse' });
     expect(r.invocations).toHaveLength(2);
+  });
+  it('per-profile severity: block under baseline becomes warn', async () => {
+    const r = await runHooks({ hooks: [profileSeverityHook], profile: 'baseline', auditLogPath: auditPath },
+      { tool: 'Bash', input: {}, event: 'PreToolUse' });
+    expect(r.decision).toBe('warn');
+    expect(r.invocations[0]?.outcome).toBe('warn');
+  });
+  it('per-profile severity: block stays block under strict', async () => {
+    const r = await runHooks({ hooks: [profileSeverityHook], profile: 'strict', auditLogPath: auditPath },
+      { tool: 'Bash', input: {}, event: 'PreToolUse' });
+    expect(r.decision).toBe('block');
+    expect(r.blockedBy).toBe('profile-severity');
+    expect(r.invocations[0]?.outcome).toBe('block');
+  });
+  it('wildcard matcher mcp__* matches mcp__server__exec', async () => {
+    const r = await runHooks({ hooks: [wildcardHook], profile: 'baseline', auditLogPath: auditPath },
+      { tool: 'mcp__server__exec', input: {}, event: 'PreToolUse' });
+    expect(r.decision).toBe('block');
+    expect(r.invocations).toHaveLength(1);
+  });
+  it('wildcard matcher mcp__* does NOT match Bash', async () => {
+    const r = await runHooks({ hooks: [wildcardHook], profile: 'baseline', auditLogPath: auditPath },
+      { tool: 'Bash', input: {}, event: 'PreToolUse' });
+    expect(r.invocations).toHaveLength(0);
+  });
+  it('PostToolUse hook reads ctx.response.stdout and blocks on LEAKED', async () => {
+    const r = await runHooks({ hooks: [postUseHook], profile: 'baseline', auditLogPath: auditPath },
+      { tool: 'Bash', input: {}, event: 'PostToolUse', response: { stdout: 'output: LEAKED secret' } });
+    expect(r.decision).toBe('block');
+    expect(r.blockedBy).toBe('post-use-leak');
   });
 });

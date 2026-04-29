@@ -1,11 +1,13 @@
-import type { HookEvent, HookModule, HookProfile } from './types.js';
+import type { HookEvent, HookModule, HookProfile, HookSeverity, ProfileSeverity } from './types.js';
 import { AuditLogger } from './audit-logger.js';
+import { matchesAny } from './matchers.js';
 
 export interface RunInput {
   tool: string;
   input: Record<string, unknown>;
   event: HookEvent;
   env?: Readonly<Record<string, string>>;
+  response?: { stdout?: string; stderr?: string; output?: unknown; [k: string]: unknown };
 }
 export interface RunOptions {
   hooks: HookModule[];
@@ -25,6 +27,10 @@ export interface RunResult {
   invocations: HookInvocation[];
 }
 
+function resolveSeverity(severity: ProfileSeverity, profile: HookProfile): HookSeverity {
+  return typeof severity === 'string' ? severity : severity[profile];
+}
+
 export async function runHooks(opts: RunOptions, run: RunInput): Promise<RunResult> {
   const logger = new AuditLogger(opts.auditLogPath);
   const invocations: HookInvocation[] = [];
@@ -33,7 +39,7 @@ export async function runHooks(opts: RunOptions, run: RunInput): Promise<RunResu
 
   for (const hook of opts.hooks) {
     if (hook.manifest.event !== run.event) continue;
-    if (!hook.manifest.matchers.includes(run.tool)) continue;
+    if (!matchesAny(run.tool, hook.manifest.matchers)) continue;
     if (!hook.manifest.profiles.includes(opts.profile)) continue;
 
     const start = Date.now();
@@ -49,6 +55,7 @@ export async function runHooks(opts: RunOptions, run: RunInput): Promise<RunResu
         hook.run({
           tool: run.tool,
           input: run.input,
+          ...(run.response ? { response: run.response } : {}),
           env: run.env ?? {},
           paths: { home: process.env.HOME ?? '', ssh: `${process.env.HOME}/.ssh`, aws: `${process.env.HOME}/.aws`, tmp: '/tmp' },
           log: () => undefined,
@@ -67,14 +74,21 @@ export async function runHooks(opts: RunOptions, run: RunInput): Promise<RunResu
       clearTimeout(timer);
     }
 
-    const duration_ms = Date.now() - start;
-    invocations.push({ hook: hook.manifest.name, outcome, reason, duration_ms });
-    await logger.write({ hook: hook.manifest.name, tool: run.tool, decision: outcome, reason, duration_ms });
+    const effectiveSeverity = resolveSeverity(hook.manifest.severity, opts.profile);
+    let resolvedOutcome: HookInvocation['outcome'] = outcome;
+    if (outcome === 'block' && effectiveSeverity === 'warn') resolvedOutcome = 'warn';
+    if (outcome === 'block' && effectiveSeverity === 'log') resolvedOutcome = 'allow';
+    const finalOutcome: HookInvocation['outcome'] =
+      outcome === 'timeout' || outcome === 'error' ? outcome : resolvedOutcome;
 
-    if (outcome === 'block' && aggregate !== 'block') {
+    const duration_ms = Date.now() - start;
+    invocations.push({ hook: hook.manifest.name, outcome: finalOutcome, reason, duration_ms });
+    await logger.write({ hook: hook.manifest.name, tool: run.tool, decision: finalOutcome, reason, duration_ms });
+
+    if (finalOutcome === 'block' && aggregate !== 'block') {
       aggregate = 'block';
       blockedBy = hook.manifest.name;
-    } else if (outcome === 'warn' && aggregate === 'allow') {
+    } else if (finalOutcome === 'warn' && aggregate === 'allow') {
       aggregate = 'warn';
     }
   }
