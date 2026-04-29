@@ -12,7 +12,10 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs,.mjs",
     "format": "prettier --write .",
     "typecheck": "pnpm -r --parallel typecheck",
-    "build:settings": "pnpm --filter @bitsummit/ccsec-cli build && node packages/cli/bin/ccsec.js compile --profile baseline --out packages/settings/compiled/baseline.json --target user --os macos --settings-root packages/settings"
+    "build:settings": "pnpm --filter @bitsummit/ccsec-cli build && node packages/cli/bin/ccsec.js compile --profile baseline --out packages/settings/compiled/baseline.json --target user --os macos --settings-root packages/settings",
+    "gen:hook-docs": "node scripts/gen-hook-docs.mjs",
+    "gen:coverage-matrix": "node scripts/gen-coverage-matrix.mjs",
+    "gen:docs": "pnpm gen:hook-docs && pnpm gen:coverage-matrix"
   },
   "devDependencies": {
     "@types/node": "^20.12.0",
