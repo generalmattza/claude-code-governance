@@ -21,15 +21,15 @@ This is a **release candidate**. Plans 1-9 of 10 are shipped; Plan 10 (pilot val
 - `docs/pilot-templates/friction-log.md`: running friction-log template with severity definitions (P0 / P1 / P2), status values, weekly check-in summaries, and v1.0.0 aggregate gating logic.
 - `docs/pilot-templates/incident-drill.md`: five-drill simulated bypass-attempt template (T-001 secret leak, T-005 destructive FS, T-007 egress, T-008 pipe-to-shell, T-014 MDM bypass) with pass criteria and post-drill checklist.
 - `docs/pilot-templates/final-report.md`: pilot signoff template with phase completion table, friction summary, drill results, audit log integrity attestation, recommendations to maintainer, and signature block.
-- `docs/v1.0.0-readiness.md`: single-page summary of remaining user-action items before `v1.0.0`. Lists required items (pilot signoff, security review, PGP key, npm token, Apple cert, CHANGELOG entry, plugin marketplace listing) and optional items (Windows EV cert, OpenSSF Scorecard, public case study).
+- `docs/v1.0.0-readiness.md`: single-page summary of remaining user-action items before `v1.0.0`. Lists required items (pilot signoff, security review, PGP key, npm token, Apple cert, CHANGELOG entry, plugin marketplace listing) and optional items (Windows EV cert, OpenSSF Scorecard, public case study). (The "security review" required item was dropped in `[Unreleased]`; only the pilot, signing secrets, CHANGELOG, and plugin marketplace items remain v1.0.0 gates.)
 - `docs/superpowers/specs/2026-04-29-plan10-pilot-validation.md` and `docs/superpowers/plans/2026-04-29-phase1-plan10-pilot-validation.md`.
 
 ### Changed
-- `README.md`: status banner updated to reflect Plans 1-9 shipped and Plan 10 as user-action; added "v1.0.0 path" section near the top linking the three pilot / review / readiness docs; version badge bumped to `0.9.0-rc.2`; OpenSSF Scorecard placeholder updated to "pending v1.0.0".
+- `README.md`: status banner updated to reflect Plans 1-9 shipped and Plan 10 as user-action; added "v1.0.0 path" section near the top linking the three pilot / review / readiness docs; version badge bumped to `0.9.0-rc.2`; OpenSSF Scorecard placeholder updated to "pending v1.0.0". (In `[Unreleased]` the "v1.0.0 path" section was reduced from three items to two: review was dropped and the engagement template was added as a separate adopter pointer.)
 
 ### Notes
 - 313 tests passing (unchanged from `v0.9.0-rc.1`; Plan 10 ships docs only, not code).
-- `v1.0.0` is **not** tagged in this release. `v1.0.0` is the maintainer's call after pilot signoff and external security review report are filed.
+- `v1.0.0` is **not** tagged in this release. `v1.0.0` is the maintainer's call after pilot signoff and external security review report are filed. (The external security review requirement was dropped in `[Unreleased]`; `v1.0.0` now ships on pilot signoff plus signing-secret provisioning. Adopters who want extended security governance engage BITSUMMIT separately via `docs/bitsummit-security-engagement.md`.)
 - Plan 10 is the final plan in Phase 1 of the project. All Plan 1-9 deliverables are shipped; the project is feature-complete and infrastructure-complete.
 
 ## [0.9.0-rc.1] - 2026-04-29
