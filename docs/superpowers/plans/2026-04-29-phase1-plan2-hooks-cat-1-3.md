@@ -91,7 +91,7 @@ CHANGELOG.md                                     # v0.2.0-alpha.0 entry
 
 ## Conventions
 
-- Working dir: `/Users/haseebminhas/Projects.DEV/Claude-Code-Security/`
+- Working dir: the repository root.
 - ESM TypeScript, vitest, pnpm workspaces (unchanged from Plan 1)
 - **Brand rule: never use em dashes; use hyphens. The pre-write hook BLOCKS em dashes.**
 - No Claude footers in commit messages
@@ -539,7 +539,7 @@ Plan 2 introduces 7 hooks across categories 1-3. Three patterns surfaced that th
 
 ## Alternatives Considered
 - **Always-record severity.** Rejected: forces every hook to specify three profiles even when severity is uniform. Plan 1's scalar form stays as the simple default.
-- **Full glob library.** Rejected: introduces a dependency and surface area we do not need. The two-pattern wildcard is sufficient for the foreseeable hook taxonomy.
+- **Full glob library.** Rejected: introduces a dependency and surface area the project does not need. The two-pattern wildcard is sufficient for the foreseeable hook taxonomy.
 - **Separate `PostToolUseContext` type.** Rejected: forces consumers to switch on event type to pick the right context. The optional `response` field is simpler; PreToolUse hooks treat it as undefined.
 - **Hook-side severity adjustment.** Rejected: would require every hook to read the active profile and decide what to return. The runner is the right place to enforce policy uniformly.
 ```

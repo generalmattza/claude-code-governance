@@ -14,7 +14,7 @@
 
 ## Conventions
 
-- Working dir `/Users/haseebminhas/Projects.DEV/Claude-Code-Security/`
+- Working dir: the repository root.
 - TDD: failing test first, run RED, implement, run GREEN.
 - No em dashes. No Claude footers. No `git push` until Task 16.
 - Each hook follows the file pattern from Plan 1+2: `packages/hooks/src/<name>/index.ts` plus `<name>.test.ts`.

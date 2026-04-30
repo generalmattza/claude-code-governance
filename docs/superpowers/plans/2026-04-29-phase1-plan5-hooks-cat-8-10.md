@@ -48,7 +48,7 @@ Same TDD pattern as Plans 1-4. Each hook gets `packages/hooks/src/<name>/{index.
 ### Task 6: local-settings-precedence-checker
 - SessionStart, matchers `['*']`, threat `T-013-settings-precedence`, severity `{baseline:'warn', strict:'warn', regulated:'block'}`, profiles all 3, timeout 1500.
 - Logic: detect when `.claude/settings.local.json` exists alongside the managed settings.json. Per spec, local settings take precedence over user but not managed (per docs); but issue #26637 shows the precedence is broken. The hook flags presence as a warn baseline+strict, block on regulated.
-- Tests: returns allow if file missing; returns warn baseline; returns block regulated (test by calling run() directly and checking the runner's profile-severity resolution would land on block - but in the test we just assert decision='block' from run() and trust the runner; OR we test that severity record has the right values).
+- Tests: returns allow if file missing; returns warn baseline; returns block regulated (test by calling run() directly and checking the runner's profile-severity resolution would land on block - but the test simply asserts decision='block' from run() and trusts the runner; OR the test asserts that the severity record has the right values).
 
 ### Task 7: subagent-spawn-guard
 - SubagentStart, matchers `['*']`, threat `T-011-subagent-escape`, severity `{baseline:'warn', strict:'block', regulated:'block'}`, profiles all 3, timeout 1500.

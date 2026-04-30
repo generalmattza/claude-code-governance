@@ -78,7 +78,7 @@ ccsec apply --profile baseline
 
 ```
 git clone https://github.com/Bitsummit-Corp/claude-code-governance.git
-cd claude-code-security
+cd claude-code-governance
 ./installers/macos/install.sh --profile baseline
 ```
 

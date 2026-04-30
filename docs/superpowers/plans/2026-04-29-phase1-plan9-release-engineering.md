@@ -34,4 +34,4 @@
 
 ## Forward Note
 
-Plan 10 is pilot validation: deploy to two BITSUMMIT engineers, capture telemetry against the documented threats, write a `docs/pilot-results.md`, and graduate to `v1.0.0`.
+Plan 10 is pilot validation: deploy to a small group of pilot engineers, capture telemetry against the documented threats, write a `docs/pilot-results.md`, and graduate to `v1.0.0`.

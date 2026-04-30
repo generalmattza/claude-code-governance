@@ -14,7 +14,7 @@
 
 ## Conventions (unchanged from Plans 2-3)
 
-- Working dir `/Users/haseebminhas/Projects.DEV/Claude-Code-Security/`
+- Working dir: the repository root.
 - TDD: failing test first.
 - No em dashes; no Claude footers; no `git push` until Task 10.
 

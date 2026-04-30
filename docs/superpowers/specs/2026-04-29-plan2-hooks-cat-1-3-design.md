@@ -1,8 +1,8 @@
 # Design: Plan 2 - Hooks Categories 1-3 (Secrets, Destructive, Sensitive Paths)
 
-**Status:** Draft, awaiting user review
+**Status:** Draft, awaiting review
 **Date:** 2026-04-29
-**Owner:** Haseeb Minhas (BITSUMMIT)
+**Owner:** project maintainers
 **Parent spec:** `docs/superpowers/specs/2026-04-29-claude-code-security-repo-design.md`
 **Plan target tag:** `v0.2.0-alpha.0`
 **Predecessor plan:** Plan 1 foundation walking skeleton (`v0.1.0-alpha.0` shipped)

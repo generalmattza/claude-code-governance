@@ -6,7 +6,7 @@
 
 This plan is **documentation-only**. It cannot be fully shipped autonomously because:
 
-1. Pilot validation requires a real BITSUMMIT customer engagement (multi-week, on real fleets, with humans).
+1. Pilot validation requires a real client engagement (multi-week, on real fleets, with humans).
 2. External security review requires hiring a paid security firm.
 
 What Claude Code ships here is the runbook + RFP template + pilot templates + readiness checklist. The maintainer ships `v1.0.0` after the user-action items in `docs/v1.0.0-readiness.md` complete.
@@ -22,7 +22,7 @@ What Claude Code ships here is the runbook + RFP template + pilot templates + re
 
 `docs/pilot-validation.md`:
 
-- Why a pilot (real-world deployment validation; non-BITSUMMIT walks the MDM doc; external security signoff).
+- Why a pilot (real-world deployment validation; an outside operator walks the MDM doc; external security signoff).
 - Candidate pilot client profiles (regulated municipal / law-enforcement Windows-heavy, regulated forensics / public-safety mixed fleet, federally-regulated Mac-heavy research org, plus opportunistic). Specific names tracked privately.
 - Pilot criteria (≥5 devs, regulated industry preferred, MDM admin available, 4-6 week window, structured feedback).
 - Four-phase rollout (kickoff, rollout, hardening, signoff) with weekly checkpoints.

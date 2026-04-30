@@ -1,8 +1,8 @@
 # Design: Plan 3 - Hooks Categories 4-5 (Bash Structural, Branch Guards)
 
-**Status:** Locked (autonomous-mode design; user reviews at end of Plan 10)
+**Status:** Locked (autonomous-mode design; reviewed at end of Plan 10)
 **Date:** 2026-04-29
-**Owner:** Haseeb Minhas (BITSUMMIT)
+**Owner:** project maintainers
 **Parent spec:** `docs/superpowers/specs/2026-04-29-claude-code-security-repo-design.md`
 **Plan target tag:** `v0.3.0-alpha.0`
 **Predecessor:** Plan 2 (`v0.2.0-alpha.0` shipped; 7 hooks across categories 1-3, contract bumps for per-profile severity + matcher wildcards + PostToolUse response)

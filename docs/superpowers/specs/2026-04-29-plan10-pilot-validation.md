@@ -12,7 +12,7 @@ What is missing for `v1.0.0` is **real-world validation**. A hardening reference
 
 Plan 10 is **NOT** a code-implementation plan and cannot be fully shipped autonomously by Claude Code. It requires two user actions that no agent can perform:
 
-1. **Pilot validation** requires a real BITSUMMIT customer engagement (a regulated client matching one of the candidate profiles documented in the runbook; specific client tracked privately). The deployment, friction-log, incident-drill, and signoff happen with humans, on real fleets, over 4-6 weeks.
+1. **Pilot validation** requires a real client engagement (a regulated client matching one of the candidate profiles documented in the runbook; specific client tracked privately by the deploying maintainer). The deployment, friction-log, incident-drill, and signoff happen with humans, on real fleets, over 4-6 weeks.
 2. **External security review** requires hiring a paid security firm (Trail of Bits, NCC Group, Doyensec, Cure53, etc.). The engagement is multi-week, costs five figures, and the final report goes into the public release notes.
 
 What Claude Code **can** ship in this plan is the **runbook + RFP template + readiness checklist + pilot templates** the maintainer will execute. The actual `v1.0.0` ship is gated on the maintainer completing those user-action items.
@@ -51,6 +51,6 @@ These are listed explicitly so they cannot drift back into scope:
 
 ## Why this is the final plan in the sequence
 
-Plans 1-5 built the hook surface. Plan 6 shipped distribution. Plan 7 shipped MDM + tamper detection. Plan 8 shipped the documentation tracks. Plan 9 shipped the release-engineering substrate. Plan 10 is the bridge from "we built a hardening reference" to "the hardening reference has been validated in the field and reviewed by a third party".
+Plans 1-5 built the hook surface. Plan 6 shipped distribution. Plan 7 shipped MDM + tamper detection. Plan 8 shipped the documentation tracks. Plan 9 shipped the release-engineering substrate. Plan 10 is the bridge from "the hardening reference is built" to "the hardening reference has been validated in the field and reviewed by a third party".
 
 Once Plan 10 user-actions complete, `v1.0.0` is a one-command ship. The release-engineering CI in Plan 9 publishes to npm, generates SBOM, builds SEA binaries, and attaches `SHA256SUMS` automatically.

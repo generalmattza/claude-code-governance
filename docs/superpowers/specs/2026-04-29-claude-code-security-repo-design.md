@@ -1,16 +1,16 @@
 # Design: claude-code-security - Open-Source Hardening Reference for Claude Code
 
-**Status:** Draft, awaiting user review
+**Status:** Draft, awaiting review
 **Date:** 2026-04-29
-**Owner:** Haseeb Minhas (BITSUMMIT)
+**Owner:** project maintainers
 **License:** MIT
-**Repo (proposed):** `github.com/bit-haseebminhas/claude-code-security` (or BITSUMMIT-org)
+**Repo (proposed):** `github.com/bit-haseebminhas/claude-code-security` (or a publishing org)
 
 ---
 
 ## 1. Purpose & Positioning
 
-A public, BITSUMMIT-stewarded reference repository that lets individual developers harden their own Claude Code installs and lets enterprises deploy a vetted security policy via MDM. The repo bundles a hooks library, layered settings templates, behavioral CLAUDE.md rules, multi-channel installers, and a documented threat model.
+A public, maintainer-stewarded reference repository that lets individual developers harden their own Claude Code installs and lets enterprises deploy a vetted security policy via MDM. The repo bundles a hooks library, layered settings templates, behavioral CLAUDE.md rules, multi-channel installers, and a documented threat model.
 
 The unique value vs. existing public projects (yurukusa/cc-safe-setup, pixelitobenito's gist, etc.) is the **enterprise/MDM track plus the documented bypass surface** - specifically passive detection of the `disableAllHooks` bypass described in [anthropics/claude-code#26637](https://github.com/anthropics/claude-code/issues/26637). Most public hooks repos optimize for solo autonomous-dev safety; this one targets regulated and managed-endpoint environments while still serving solo devs.
 
@@ -275,7 +275,7 @@ Two frameworks woven together: **STRIDE** for the agent process, **OWASP Agentic
 
 ### Explicit non-goals (sets reader expectations)
 
-- **Not a sandbox.** Claude Code runs as the user; we restrict, we don't isolate.
+- **Not a sandbox.** Claude Code runs as the user; the project restricts, it doesn't isolate.
 - **Not a runtime jail.** Determined attacker with shell access wins.
 - **Not a network firewall.** Egress allowlist is best-effort; bypass via DoH or IP literals possible.
 - **Not a remote management system.** No daemon, no SIEM coupling, no auto-remediation (out by design).
@@ -318,7 +318,7 @@ Reader: security reviewer, auditor.
 - Full threat-model doc with Mermaid diagrams, T-IDs, STRIDE/Agentic mapping
 - Auto-generated page per hook from manifest: name, threat addressed, profiles, severity, false-positive notes, evidence format, disabling guidance
 - `coverage-matrix.md` - profile × threat ID
-- `known-bypasses.md` - incl. #26637 with detection recipe and explicit candor on what we don't fully fix
+- `known-bypasses.md` - incl. #26637 with detection recipe and explicit candor on what the project does not fully fix
 
 ### Track 4 - `docs/settings-reference.md` + `docs/profiles/`
 
@@ -376,7 +376,7 @@ Every known bypass becomes a permanent test that fails on regression. This is wh
 - **Malicious-prompt corpus** - public datasets (Lakera Gandalf, etc.) + hand-crafted attempts at destructive ops, secret exfil, exfil to attacker domains. Asserts hooks block.
 - **Command-injection corpus** - pipe-to-shell, command substitution, here-doc tricks, encoded payloads, Unicode lookalike tricks (e.g., `；` U+FF1B vs `;`). Asserts `bash-structural-guard` catches each.
 - **Exfil-pattern corpus** - WebFetch attempts to pastebin, transfer.sh, requestbin, raw IPs, DoH endpoints, base64-encoded URLs. Asserts egress allowlist catches.
-- **Bypass-regression corpus** - every bypass we close gets a permanent test. Issue #26637 detector test lives here from day one.
+- **Bypass-regression corpus** - every closed bypass gets a permanent test. Issue #26637 detector test lives here from day one.
 - **Subagent-escape corpus** - prompts attempting unapproved Task spawns, abusing Task to chain into Bash with looser policy. Asserts `agent-gating` holds.
 
 ### Continuous fuzzing
@@ -390,7 +390,7 @@ Cron-scheduled job pulls latest published prompt-injection corpora, runs them ag
 ### Test data hygiene
 
 - No real secrets in fixtures - synthetic patterns that match known formats (AWS, GitHub, Stripe) without being valid
-- All bypass test names are public; corpus contents that demo bypasses are gated behind a "responsible disclosure" branch so we don't ship working exploits at the same time as the fix
+- All bypass test names are public; corpus contents that demo bypasses are gated behind a "responsible disclosure" branch so the project does not ship working exploits at the same time as the fix
 
 ---
 
@@ -441,14 +441,14 @@ Cron-scheduled job pulls latest published prompt-injection corpora, runs them ag
 
 ### Maintenance signals (prevent abandonment)
 
-- `OWNERS.md` lists named maintainers + responsibilities + backups (not "the BITSUMMIT team")
+- `OWNERS.md` lists named maintainers + responsibilities + backups (not a generic "the team")
 - Triage SLA: ack ≤72hrs, fix or roadmap ≤14 days for HIGH, ≤30 days for MEDIUM
 - Monthly "state of the project" issue auto-opened by a workflow: open bypasses, recent advisories, hook-coverage drift, dependency staleness
 - Stale-issue bot configured generously; security repos with hostile stale-bots earn a bad reputation
 
 ### Sustainability
 
-- BITSUMMIT-stewarded but contributor-friendly: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, "good first issue" labels, transparent governance note in `OWNERS.md` describing the path to maintainer status
+- Maintainer-stewarded but contributor-friendly: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, "good first issue" labels, transparent governance note in `OWNERS.md` describing the path to maintainer status
 - Optional public roadmap project board
 - Optional sponsorship config
 
@@ -474,7 +474,7 @@ Cron-scheduled job pulls latest published prompt-injection corpora, runs them ag
 
 - `installers/windows/` - PowerShell installer, Intune ADMX, optional MSI
 - Hook portability validation: every hook re-runs against Windows transcripts in CI
-- `docs/deployment/mdm-intune.md` written and tested against a real Intune tenant (BITSUMMIT lab)
+- `docs/deployment/mdm-intune.md` written and tested against a real Intune tenant (maintainer's lab)
 - `ccsec` Windows binary signed with EV cert (Authenticode)
 - Windows fixtures added to integration corpus
 
@@ -491,13 +491,13 @@ Cron-scheduled job pulls latest published prompt-injection corpora, runs them ag
 - "Active monitoring tier" (option B from posture decision) as opt-in if clients ask
 - SIEM shipper for Splunk/Sentinel/Datadog (passive log forwarder, no daemon)
 - Web-based policy editor compiling to settings.json
-- Reference upstream patch / proposal to Anthropic for issue #26637, once we have field data
+- Reference upstream patch / proposal to Anthropic for issue #26637, once field data is available
 
 ### Phase 1 success criteria
 
 - Three-channel install works end-to-end on a clean Mac
 - All security-regression corpora pass against `regulated` profile
-- A non-BITSUMMIT person can read `docs/deployment/mdm-jamf.md` and ship the policy without our help (validated with one external pilot)
+- An outside operator unfamiliar with the project can read `docs/deployment/mdm-jamf.md` and ship the policy without maintainer help (validated with one external pilot)
 - Named external security reviewer (paid pre-release) signs off on threat model
 
 ### Deliberately NOT in roadmap
@@ -516,10 +516,10 @@ Cron-scheduled job pulls latest published prompt-injection corpora, runs them ag
 These do not block design approval but should be resolved during writing-plans:
 
 1. **Plugin marketplace listing name** vs. **GitHub repo name** - should both be `claude-code-security` or should the marketplace use `bitsummit-claude-code-security` for branding?
-2. **Org for the GitHub repo** - `bit-haseebminhas/` (personal) vs. a BITSUMMIT GitHub org? Affects ownership perception and the `security@` mailbox.
+2. **Org for the GitHub repo** - `bit-haseebminhas/` (personal) vs. a publishing org? Affects ownership perception and the `security@` mailbox.
 3. **External pre-release security reviewer** - name, budget, timeline. Critical for credibility on day-one launch.
 4. **PGP key custody** - release-signing key generation, storage, and rotation procedure.
-5. **Pilot client for `regulated` profile validation** - which existing BITSUMMIT client is best suited (specific candidates tracked privately in the maintainer's pipeline; profiles described in `docs/pilot-validation.md`) and what does their participation look like?
+5. **Pilot client for `regulated` profile validation** - which existing regulated client is best suited (specific candidates tracked privately in the maintainer's pipeline; profiles described in `docs/pilot-validation.md`) and what does their participation look like?
 6. **Audit log format** - JSONL is decided; the per-record schema (CEF, ECS, custom) is not. Recommend ECS so future SIEM integration is one-shot.
 
 ---

@@ -25,7 +25,7 @@ Phase 1 of the spec ships as 10 sequential plans. Each produces working, tagged 
 | 7 | Jamf integration + tamper detection | Config profile, `verify.sh`, `chflags uchg`, manifest hashing | `v0.7.0-beta` |
 | 8 | Full docs (Track 1-5) + auto-generation pipeline | Hooks docs autogen, coverage matrix, ADRs, deployment guides | `v0.8.0-rc` |
 | 9 | Release engineering: signing, SBOM, GHSA, Node SEA binaries | SLSA L3, CycloneDX, signed artifacts, security advisory pipeline | `v0.9.0-rc` |
-| 10 | Pilot validation + external security review | One BITSUMMIT pilot client, paid external reviewer sign-off | `v1.0.0` |
+| 10 | Pilot validation + external security review | One pilot client engagement, paid external reviewer sign-off | `v1.0.0` |
 
 This document covers Plan 1 only. Each subsequent plan starts with a fresh brainstorm/spec/plan cycle once the prior plan ships.
 
@@ -37,7 +37,7 @@ See repo tree appended in part 2.
 
 ## Conventions Used Throughout This Plan
 
-- **Working directory** for all commands unless stated otherwise: `/Users/haseebminhas/Projects.DEV/Claude-Code-Security/`
+- **Working directory** for all commands unless stated otherwise: the repository root (the directory created by `git clone https://github.com/Bitsummit-Corp/claude-code-governance.git`).
 - **All TypeScript files** use ES Modules (`"type": "module"` in each package.json)
 - **Test runner** is vitest, invoked via `pnpm test` from repo root or `pnpm --filter <pkg> test` per package
 - **Commit style**: short, imperative, no Claude footers (per global rules)
@@ -136,7 +136,7 @@ claude-code-security/
 - [ ] **Step 1: Initialize git and write `.gitignore`**
 
 ```bash
-cd /Users/haseebminhas/Projects.DEV/Claude-Code-Security
+cd /path/to/claude-code-governance
 git init -b main
 ```
 
@@ -2235,7 +2235,7 @@ pnpm workspaces monorepo. Each package publishes independently but shares `tscon
 Accepted (2026-04-29). Revisitable in v2.
 
 ## Context
-Three options for enforcement posture were considered: (A) passive defaults only, (B) active monitoring daemon, (C) active monitoring + auto-remediation. The user (BITSUMMIT) chose A.
+Three options for enforcement posture were considered: (A) passive defaults only, (B) active monitoring daemon, (C) active monitoring + auto-remediation. The project chose A.
 
 ## Decision
 v1.x ships *no daemons*, *no auto-remediation*, and *no SIEM coupling code*. Everything is hooks + settings + behavioral rules. Tamper detection is admin-scheduled (`ccsec verify` via cron / Intune compliance script), not always-on.

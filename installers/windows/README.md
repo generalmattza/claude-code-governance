@@ -28,7 +28,7 @@ On the build host:
 
 ```
 git clone https://github.com/Bitsummit-Corp/claude-code-governance.git
-cd claude-code-security
+cd claude-code-governance
 pnpm install --frozen-lockfile
 pnpm build
 
