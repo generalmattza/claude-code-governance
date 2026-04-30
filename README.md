@@ -105,11 +105,14 @@ Five tracks of documentation, all shipped in this release:
 - This README.
 - [`SECURITY.md`](./SECURITY.md): vulnerability disclosure.
 - [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md): community norms.
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md): how to set up, what kinds of contributions are welcomed, PR workflow, hook-adding procedure.
+- [`OWNERS.md`](./OWNERS.md): current maintainers, decision rights, response-time expectations.
 - [`LICENSE`](./LICENSE): MIT.
 - [`CHANGELOG.md`](./CHANGELOG.md): per-release notes.
 
 ### Track 2 - Deployment
 - [`docs/deployment/mdm-jamf.md`](./docs/deployment/mdm-jamf.md): macOS Jamf workflow (the working reference).
+- [`installers/macos/README.md`](./installers/macos/README.md): per-user and fleet-managed install paths for macOS.
 - [`installers/macos/`](./installers/macos/): `install.sh`, `install-managed.sh`, `verify-managed.sh`, Jamf Configuration Profile template.
 - [`installers/windows/README.md`](./installers/windows/README.md): Intune deployment guide (templates pending v1.1).
 - [`installers/linux/README.md`](./installers/linux/README.md): Ansible / `.deb` / `.rpm` deployment guide (templates pending v1.2).

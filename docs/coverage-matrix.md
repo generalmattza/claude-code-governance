@@ -81,11 +81,46 @@
 | --- | --- | --- | --- |
 | [`behavioral-rule-enforcer`](hooks/behavioral-rule-enforcer.md) | `*` | `T-010-prompt-injection` | log |
 
+## Threat to test map
+
+Each hook ships with a companion vitest suite at `packages/hooks/src/<name>/<name>.test.ts`. The cases counted below are top-of-line `it()` / `test()` invocations; assertions inside helpers are not counted.
+
+| Threat | Hook | Tests | Cases |
+| --- | --- | --- | --- |
+| `T-001-secret-leak` | [`keychain-guard`](hooks/keychain-guard.md) | [`packages/hooks/src/keychain-guard/keychain-guard.test.ts`](../packages/hooks/src/keychain-guard/keychain-guard.test.ts) | 6 |
+| `T-001-secret-leak` | [`mcp-secret-guard`](hooks/mcp-secret-guard.md) | [`packages/hooks/src/mcp-secret-guard/mcp-secret-guard.test.ts`](../packages/hooks/src/mcp-secret-guard/mcp-secret-guard.test.ts) | 5 |
+| `T-001-secret-leak` | [`secret-guard`](hooks/secret-guard.md) | [`packages/hooks/src/secret-guard/secret-guard.test.ts`](../packages/hooks/src/secret-guard/secret-guard.test.ts) | 9 |
+| `T-001-secret-leak` | [`secret-leak-detector`](hooks/secret-leak-detector.md) | [`packages/hooks/src/secret-leak-detector/secret-leak-detector.test.ts`](../packages/hooks/src/secret-leak-detector/secret-leak-detector.test.ts) | 7 |
+| `T-002-destructive-fs` | [`destructive-fs-guard`](hooks/destructive-fs-guard.md) | [`packages/hooks/src/destructive-fs-guard/destructive-fs-guard.test.ts`](../packages/hooks/src/destructive-fs-guard/destructive-fs-guard.test.ts) | 10 |
+| `T-002-destructive-fs` | [`dotfile-guard`](hooks/dotfile-guard.md) | [`packages/hooks/src/dotfile-guard/dotfile-guard.test.ts`](../packages/hooks/src/dotfile-guard/dotfile-guard.test.ts) | 8 |
+| `T-003-credential-exfil` | [`sensitive-paths-guard`](hooks/sensitive-paths-guard.md) | [`packages/hooks/src/sensitive-paths-guard/sensitive-paths-guard.test.ts`](../packages/hooks/src/sensitive-paths-guard/sensitive-paths-guard.test.ts) | 9 |
+| `T-004-branch-sabotage` | [`branch-protection-guard`](hooks/branch-protection-guard.md) | [`packages/hooks/src/branch-protection-guard/branch-protection-guard.test.ts`](../packages/hooks/src/branch-protection-guard/branch-protection-guard.test.ts) | 10 |
+| `T-004-branch-sabotage` | [`commit-amend-pushed-guard`](hooks/commit-amend-pushed-guard.md) | [`packages/hooks/src/commit-amend-pushed-guard/commit-amend-pushed-guard.test.ts`](../packages/hooks/src/commit-amend-pushed-guard/commit-amend-pushed-guard.test.ts) | 8 |
+| `T-004-branch-sabotage` | [`git-destructive-guard`](hooks/git-destructive-guard.md) | [`packages/hooks/src/git-destructive-guard/git-destructive-guard.test.ts`](../packages/hooks/src/git-destructive-guard/git-destructive-guard.test.ts) | 9 |
+| `T-005-network-exfil` | [`bash-egress-guard`](hooks/bash-egress-guard.md) | [`packages/hooks/src/bash-egress-guard/bash-egress-guard.test.ts`](../packages/hooks/src/bash-egress-guard/bash-egress-guard.test.ts) | 10 |
+| `T-005-network-exfil` | [`webfetch-egress-guard`](hooks/webfetch-egress-guard.md) | [`packages/hooks/src/webfetch-egress-guard/webfetch-egress-guard.test.ts`](../packages/hooks/src/webfetch-egress-guard/webfetch-egress-guard.test.ts) | 9 |
+| `T-006-pipe-to-shell` | [`bash-structural-guard`](hooks/bash-structural-guard.md) | [`packages/hooks/src/bash-structural-guard/bash-structural-guard.test.ts`](../packages/hooks/src/bash-structural-guard/bash-structural-guard.test.ts) | 10 |
+| `T-006-pipe-to-shell` | [`pipe-to-shell-guard`](hooks/pipe-to-shell-guard.md) | [`packages/hooks/src/pipe-to-shell-guard/pipe-to-shell-guard.test.ts`](../packages/hooks/src/pipe-to-shell-guard/pipe-to-shell-guard.test.ts) | 10 |
+| `T-008-history-rewrite` | [`git-history-rewrite-guard`](hooks/git-history-rewrite-guard.md) | [`packages/hooks/src/git-history-rewrite-guard/git-history-rewrite-guard.test.ts`](../packages/hooks/src/git-history-rewrite-guard/git-history-rewrite-guard.test.ts) | 10 |
+| `T-010-prompt-injection` | [`behavioral-rule-enforcer`](hooks/behavioral-rule-enforcer.md) | [`packages/hooks/src/behavioral-rule-enforcer/behavioral-rule-enforcer.test.ts`](../packages/hooks/src/behavioral-rule-enforcer/behavioral-rule-enforcer.test.ts) | 7 |
+| `T-010-prompt-injection` | [`claude-md-validator`](hooks/claude-md-validator.md) | [`packages/hooks/src/claude-md-validator/claude-md-validator.test.ts`](../packages/hooks/src/claude-md-validator/claude-md-validator.test.ts) | 7 |
+| `T-010-prompt-injection` | [`untrusted-content-tagger`](hooks/untrusted-content-tagger.md) | [`packages/hooks/src/untrusted-content-tagger/untrusted-content-tagger.test.ts`](../packages/hooks/src/untrusted-content-tagger/untrusted-content-tagger.test.ts) | 6 |
+| `T-011-subagent-escape` | [`agent-allowlist-enforcer`](hooks/agent-allowlist-enforcer.md) | [`packages/hooks/src/agent-allowlist-enforcer/agent-allowlist-enforcer.test.ts`](../packages/hooks/src/agent-allowlist-enforcer/agent-allowlist-enforcer.test.ts) | 4 |
+| `T-011-subagent-escape` | [`subagent-spawn-guard`](hooks/subagent-spawn-guard.md) | [`packages/hooks/src/subagent-spawn-guard/subagent-spawn-guard.test.ts`](../packages/hooks/src/subagent-spawn-guard/subagent-spawn-guard.test.ts) | 5 |
+| `T-011-subagent-escape` | [`task-tool-input-guard`](hooks/task-tool-input-guard.md) | [`packages/hooks/src/task-tool-input-guard/task-tool-input-guard.test.ts`](../packages/hooks/src/task-tool-input-guard/task-tool-input-guard.test.ts) | 6 |
+| `T-012-mdm-bypass` | [`disable-all-hooks-detector`](hooks/disable-all-hooks-detector.md) | [`packages/hooks/src/disable-all-hooks-detector/disable-all-hooks-detector.test.ts`](../packages/hooks/src/disable-all-hooks-detector/disable-all-hooks-detector.test.ts) | 5 |
+| `T-013-settings-precedence` | [`local-settings-precedence-checker`](hooks/local-settings-precedence-checker.md) | [`packages/hooks/src/local-settings-precedence-checker/local-settings-precedence-checker.test.ts`](../packages/hooks/src/local-settings-precedence-checker/local-settings-precedence-checker.test.ts) | 4 |
+| `T-015-audit-tampering` | [`audit-tamper-detector`](hooks/audit-tamper-detector.md) | [`packages/hooks/src/audit-tamper-detector/audit-tamper-detector.test.ts`](../packages/hooks/src/audit-tamper-detector/audit-tamper-detector.test.ts) | 6 |
+| `T-017-repudiation` | [`audit-session-summary`](hooks/audit-session-summary.md) | [`packages/hooks/src/audit-session-summary/audit-session-summary.test.ts`](../packages/hooks/src/audit-session-summary/audit-session-summary.test.ts) | 5 |
+| `T-018-supply-chain-submodule` | [`submodule-injection-guard`](hooks/submodule-injection-guard.md) | [`packages/hooks/src/submodule-injection-guard/submodule-injection-guard.test.ts`](../packages/hooks/src/submodule-injection-guard/submodule-injection-guard.test.ts) | 9 |
+
 ## Summary
 
 - Total hooks: 26
 - Distinct threats covered: 14
 - Events: PostToolUse, PreToolUse, SessionStart, SubagentStart, SubagentStop, UserPromptSubmit
+- Hooks with a companion test file: 26 / 26
+- Total hook test cases (rough): 194
 
 ---
 
