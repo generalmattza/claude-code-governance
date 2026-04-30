@@ -21,5 +21,5 @@ For the user-facing equivalents of what is in here, see:
 - Threat coverage: `docs/threat-model.md` and `docs/coverage-matrix.md`.
 - Per-hook behavior: `docs/hooks/<name>.md`.
 - Pilot runbook: `docs/pilot-validation.md`.
-- External security review template: `docs/external-security-review-rfp.md`.
+- BITSUMMIT extended security governance engagement template: `docs/bitsummit-security-engagement.md`.
 - v1.0.0 readiness checklist: `docs/v1.0.0-readiness.md`.

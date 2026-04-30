@@ -29,20 +29,20 @@ What Claude Code ships here is the runbook + RFP template + pilot templates + re
 - v1.0.0 readiness checklist.
 - Friction-log template inline.
 - Internal incident drill template inline.
-- Pointer to the external security review RFP.
+- Pointer to the BITSUMMIT extended-security-governance engagement template.
 
-### 3. External security review RFP
+### 3. BITSUMMIT security engagement template
 
-`docs/external-security-review-rfp.md`:
+`docs/bitsummit-security-engagement.md` (originally shipped as `docs/external-security-review-rfp.md` and reframed in `[Unreleased]`):
 
 - Project overview.
-- Scope (threat model, hook code, settings, deployment guides).
-- Out of scope (Claude Code itself, OS-level security, third-party hooks).
-- Deliverables (written report, severity-ranked findings, retest after fixes).
-- Timeline (4-6 weeks).
-- Budget guidance ($15-30K, non-authoritative).
-- Candidate firms (Trail of Bits, NCC Group, Doyensec, Cure53, Atredis, Include Security; user picks).
-- Engagement Q&A template the firm fills out before signing.
+- Who the engagement is for (adopters running `regulated`, regulated sectors, SIEM integration, custom incident-response runbook).
+- Engagement scope (custom-profile compilation, threat-model extension, audit-log SIEM integration, incident-response runbook, MDM deployment, standing channel, training).
+- Out of scope (the engagement is paid services, not an independent third-party audit; Claude Code itself; OS-level primitives; third-party hooks; supply-chain audit).
+- Deliverables (compiled profile, threat-model addendum, SIEM runbook, incident-response runbook, training session, final report).
+- Timeline (4-8 weeks).
+- Pricing (scoped per engagement; contact for quote).
+- Submission via `security@bitsummit.com`.
 
 ### 4. Pilot templates
 
@@ -56,7 +56,7 @@ What Claude Code ships here is the runbook + RFP template + pilot templates + re
 ### 5. README updates
 
 - Status banner: "Plan 9 of 10 shipped (`v0.9.0-rc.2`). Plan 10 is user-action: pilot validation. v1.0.0 ships when the maintainer completes Plan 10."
-- "v1.0.0 path" section near the top, linking `docs/pilot-validation.md`, `docs/external-security-review-rfp.md`, and `docs/v1.0.0-readiness.md`.
+- "v1.0.0 path" section near the top, linking `docs/pilot-validation.md` and `docs/v1.0.0-readiness.md`. (The `docs/external-security-review-rfp.md` link in earlier drafts was replaced by `docs/bitsummit-security-engagement.md` and is no longer a v1.0.0 gate.)
 
 ### 6. v1.0.0 readiness summary
 

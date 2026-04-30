@@ -83,7 +83,6 @@ Exit: Signed pilot final report on file; v1.0.0 readiness checklist either compl
 This checklist is also tracked separately in `docs/v1.0.0-readiness.md`. When all items are checked, the maintainer can tag `v1.0.0`.
 
 - [ ] Pilot client signed off (final-report.md filed and signed).
-- [ ] External security reviewer's report attached to release notes (see `docs/external-security-review-rfp.md`).
 - [ ] PGP key generated; fingerprint published in `SECURITY.md`; public key uploaded to `keys.openpgp.org` and `keybase.io`.
 - [ ] `NPM_TOKEN` provisioned in repo secrets; first publish to npmjs.com confirmed and SBOM attached to GitHub release.
 - [ ] Apple Developer ID cert provisioned; macOS SEA binary signed and notarized; Gatekeeper passes.
@@ -119,9 +118,11 @@ The full template is in `docs/pilot-templates/incident-drill.md`. The five drill
 
 Each drill is logged in the friction log even on success ("Status: drill - detected"). A failed drill is a P0 item by definition.
 
-## External security reviewer RFP
+## Extended security governance
 
-The RFP template is at `docs/external-security-review-rfp.md`. The maintainer sends it to 3-5 firms in parallel; picks one based on response quality, scope match, and budget; signs SOW; runs the engagement during pilot Phase 2-3 so the reviewer's report is ready for v1.0.0 signoff.
+Adopters who want extended security governance beyond what the open-source profiles cover (custom-profile compilation, SIEM integration, compliance-regime mapping, training, ongoing tuning) can engage BITSUMMIT directly via the template at `docs/bitsummit-security-engagement.md`. This is a paid services engagement and is independent of the pilot validation runbook above; pilot signoff does not depend on it.
+
+Adopters who require an independent third-party security audit (separate from the pilot signoff) commission one through their own procurement.
 
 ## After v1.0.0 ships
 

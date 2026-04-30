@@ -13,14 +13,14 @@ What is missing for `v1.0.0` is **real-world validation**. A hardening reference
 Plan 10 is **NOT** a code-implementation plan and cannot be fully shipped autonomously by Claude Code. It requires two user actions that no agent can perform:
 
 1. **Pilot validation** requires a real client engagement (a regulated client matching one of the candidate profiles documented in the runbook; specific client tracked privately by the deploying maintainer). The deployment, friction-log, incident-drill, and signoff happen with humans, on real fleets, over 4-6 weeks.
-2. **External security review** requires hiring a paid security firm (Trail of Bits, NCC Group, Doyensec, Cure53, etc.). The engagement is multi-week, costs five figures, and the final report goes into the public release notes.
+2. **External security review** (originally framed in this plan as a v1.0.0 gate) is no longer a v1.0.0 prerequisite. Adopters who need an independent third-party audit commission one through their own procurement; BITSUMMIT offers extended security governance as a paid services engagement instead - see `docs/bitsummit-security-engagement.md`. The original third-party RFP template was removed when the engagement model shifted.
 
 What Claude Code **can** ship in this plan is the **runbook + RFP template + readiness checklist + pilot templates** the maintainer will execute. The actual `v1.0.0` ship is gated on the maintainer completing those user-action items.
 
 ## In Scope (Documentation Only)
 
 1. `docs/pilot-validation.md`: canonical pilot runbook covering candidate clients, criteria, four-phase rollout, friction log, internal incident drill, and v1.0.0 readiness checklist.
-2. `docs/external-security-review-rfp.md`: RFP template the maintainer can send to security firms.
+2. `docs/bitsummit-security-engagement.md` (originally shipped as `docs/external-security-review-rfp.md`; reframed in `[Unreleased]` as a paid BITSUMMIT services engagement template, not a third-party audit RFP).
 3. `docs/pilot-templates/agreement.md`: pilot agreement template (with explicit disclaimer that it does not substitute for contract counsel).
 4. `docs/pilot-templates/friction-log.md`: running friction-log template for the pilot lead.
 5. `docs/pilot-templates/incident-drill.md`: simulated bypass-attempt drill template.

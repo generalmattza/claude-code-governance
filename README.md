@@ -12,11 +12,12 @@ Open-source hardening reference for Anthropic's Claude Code. Ships hooks, layere
 
 ## v1.0.0 path
 
-`v1.0.0` is gated on three user-action items the maintainer drives, not Claude Code:
+`v1.0.0` is gated on two user-action items the maintainer drives, not Claude Code:
 
 1. **Pilot validation** with a real regulated client - see [docs/pilot-validation.md](./docs/pilot-validation.md) for the six-week runbook.
-2. **External security review** by a third-party firm - see [docs/external-security-review-rfp.md](./docs/external-security-review-rfp.md) for the RFP template.
-3. **Release-signing secrets provisioned** (PGP, npm token, Apple Developer ID, optional Windows EV) - see [docs/v1.0.0-readiness.md](./docs/v1.0.0-readiness.md) for the full checklist.
+2. **Release-signing secrets provisioned** (PGP, npm token, Apple Developer ID, optional Windows EV) - see [docs/v1.0.0-readiness.md](./docs/v1.0.0-readiness.md) for the full checklist.
+
+Adopters that need extended security governance beyond the open-source defaults (custom-profile compilation, SIEM integration, compliance-regime mapping, training) can engage BITSUMMIT directly - see [docs/bitsummit-security-engagement.md](./docs/bitsummit-security-engagement.md).
 
 The full Plan 1 through Plan 10 sequence is at [`docs/superpowers/plans/`](./docs/superpowers/plans/).
 
