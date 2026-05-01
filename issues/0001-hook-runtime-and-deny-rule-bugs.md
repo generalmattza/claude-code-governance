@@ -16,15 +16,51 @@
 
 ## Summary
 
-Three bugs were discovered through live testing that collectively caused the governance system to be partially inoperative:
+Four bugs were discovered through live testing that collectively caused the governance system to be partially inoperative:
 
-1. Hook invocations were never written to the audit log.
-2. All deny-list rules were silently dropped by Claude Code on session load.
-3. WebFetch deny patterns were rejected with a warning due to incorrect syntax.
+1. Hooks were not registered in `settings.json` in a format Claude Code could interpret.
+2. Hook invocations were never written to the audit log.
+3. All deny-list rules were silently dropped by Claude Code on session load.
+4. WebFetch deny patterns were rejected with a warning due to incorrect syntax.
 
 ---
 
-## Bug 1 — Audit log never written (`run-hook.ts`)
+## Bug 1 — Hooks not registered in Claude Code format (`apply.ts`)
+
+### Symptom
+
+Hooks defined in the settings overlays were not being invoked by Claude Code, even when a `ccsec apply` appeared to succeed. The compiled `settings.json` contained hook entries in an internal format Claude Code could not parse.
+
+### Root cause
+
+The compiler (`compileProfile`) emits hook references as simple name objects:
+
+```json
+{ "hooks": { "PreToolUse": [{ "name": "secret-guard" }] } }
+```
+
+Claude Code requires a fully-expanded format with matcher and command:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{ "type": "command", "command": "node /path/ccsec.js run-hook --name secret-guard --profile baseline" }]
+    }]
+  }
+}
+```
+
+`applyCommand` wrote the raw compiler output directly to `settings.json` without translating it.
+
+### Fix
+
+`packages/cli/src/commands/apply.ts`: added `resolveHooks()`, called inside `applyCommand` after `compileProfile`. It reads each hook's compiled manifest (from `hooks/dist`) to obtain its `matchers` and `profiles`, skips hooks not applicable to the active profile, groups hooks by matcher key, and outputs the fully-expanded Claude Code format with absolute paths to the `ccsec.js` binary. Two override arguments (`ccsecBin`, `hooksDistPath`) were added to `ApplyCommandArgs` to support testing without depending on installed file layout.
+
+---
+
+## Bug 2 — Audit log never written (`run-hook.ts`)
 
 ### Symptom
 
@@ -40,7 +76,7 @@ Three bugs were discovered through live testing that collectively caused the gov
 
 ---
 
-## Bug 2 — Deny rules silently dropped by Claude Code (`apply.ts`)
+## Bug 3 — Deny rules silently dropped by Claude Code (`apply.ts`)
 
 ### Symptom
 
@@ -78,7 +114,7 @@ Claude Code's permission system requires plain strings:
 
 ---
 
-## Bug 3 — WebFetch deny patterns rejected (`network-egress.json`)
+## Bug 4 — WebFetch deny patterns rejected (`network-egress.json`)
 
 ### Symptom
 
