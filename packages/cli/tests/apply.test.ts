@@ -23,7 +23,7 @@ describe('apply command', () => {
     await applyCommand({ settingsRoot: join(root, 'settings'), profile: 'baseline', claudeDir, os: 'macos', env: { HOME: '/Users/x' }, dryRun: false });
     const settings = JSON.parse(await readFile(join(claudeDir, 'settings.json'), 'utf8'));
     const lock = JSON.parse(await readFile(join(claudeDir, '.ccsec-lock.json'), 'utf8'));
-    expect(settings.permissions.deny[0].pattern).toBe('Bash(env)');
+    expect(settings.permissions.deny[0]).toBe('Bash(env)');
     expect(lock.profile).toBe('baseline');
   });
   it('does not write when dryRun=true', async () => {
@@ -41,7 +41,7 @@ describe('apply command', () => {
     const r = await applyCommand({ settingsRoot: join(root, 'settings'), profile: 'baseline', claudeDir, os: 'macos', env: { HOME: '/Users/x' }, dryRun: false, force: true });
     expect(r.wrote).toBe(true);
     const settings = JSON.parse(await readFile(join(claudeDir, 'settings.json'), 'utf8'));
-    expect(settings.permissions.deny[0].pattern).toBe('Bash(env)');
+    expect(settings.permissions.deny[0]).toBe('Bash(env)');
   });
   it('installRules=true creates CLAUDE.md from the template', async () => {
     const rulesRoot = join(root, 'rules-templates');

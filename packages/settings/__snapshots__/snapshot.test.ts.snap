@@ -17,15 +17,15 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
         "threat": "T-001-secret-leak"
       },
       {
-        "pattern": "Read(/Users/x/.ssh/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.ssh/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.aws/credentials)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.aws/credentials)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.gnupg/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.gnupg/**)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -37,7 +37,7 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
         "threat": "T-002-destructive-fs"
       },
       {
-        "pattern": "Bash(rm -rf /Users/x)",
+        "pattern": "Bash(rm -rf /home/matthew.davidson@gf.local)",
         "threat": "T-002-destructive-fs"
       },
       {
@@ -65,19 +65,19 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
         "threat": "T-004-branch-sabotage"
       },
       {
-        "pattern": "Read(/Users/x/.kube/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.kube/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.docker/config.json)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.docker/config.json)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.netrc)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.netrc)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.config/gh/hosts.yml)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.config/gh/hosts.yml)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -121,19 +121,19 @@ exports[`settings/compiled snapshots > baseline.json matches checked-in snapshot
         "threat": "T-018-supply-chain-submodule"
       },
       {
-        "pattern": "WebFetch(*pastebin.com*)",
+        "pattern": "WebFetch(domain:pastebin.com)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*paste.ee*)",
+        "pattern": "WebFetch(domain:paste.ee)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*requestbin.com*)",
+        "pattern": "WebFetch(domain:requestbin.com)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*transfer.sh*)",
+        "pattern": "WebFetch(domain:transfer.sh)",
         "threat": "T-005-network-exfil"
       },
       {
@@ -267,15 +267,15 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
         "threat": "T-001-secret-leak"
       },
       {
-        "pattern": "Read(/Users/x/.ssh/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.ssh/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.aws/credentials)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.aws/credentials)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.gnupg/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.gnupg/**)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -287,7 +287,7 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
         "threat": "T-002-destructive-fs"
       },
       {
-        "pattern": "Bash(rm -rf /Users/x)",
+        "pattern": "Bash(rm -rf /home/matthew.davidson@gf.local)",
         "threat": "T-002-destructive-fs"
       },
       {
@@ -315,19 +315,19 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
         "threat": "T-004-branch-sabotage"
       },
       {
-        "pattern": "Read(/Users/x/.kube/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.kube/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.docker/config.json)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.docker/config.json)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.netrc)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.netrc)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.config/gh/hosts.yml)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.config/gh/hosts.yml)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -371,19 +371,19 @@ exports[`settings/compiled snapshots > regulated.json matches checked-in snapsho
         "threat": "T-018-supply-chain-submodule"
       },
       {
-        "pattern": "WebFetch(*pastebin.com*)",
+        "pattern": "WebFetch(domain:pastebin.com)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*paste.ee*)",
+        "pattern": "WebFetch(domain:paste.ee)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*requestbin.com*)",
+        "pattern": "WebFetch(domain:requestbin.com)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*transfer.sh*)",
+        "pattern": "WebFetch(domain:transfer.sh)",
         "threat": "T-005-network-exfil"
       },
       {
@@ -528,15 +528,15 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
         "threat": "T-001-secret-leak"
       },
       {
-        "pattern": "Read(/Users/x/.ssh/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.ssh/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.aws/credentials)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.aws/credentials)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.gnupg/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.gnupg/**)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -548,7 +548,7 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
         "threat": "T-002-destructive-fs"
       },
       {
-        "pattern": "Bash(rm -rf /Users/x)",
+        "pattern": "Bash(rm -rf /home/matthew.davidson@gf.local)",
         "threat": "T-002-destructive-fs"
       },
       {
@@ -576,19 +576,19 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
         "threat": "T-004-branch-sabotage"
       },
       {
-        "pattern": "Read(/Users/x/.kube/**)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.kube/**)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.docker/config.json)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.docker/config.json)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.netrc)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.netrc)",
         "threat": "T-003-credential-exfil"
       },
       {
-        "pattern": "Read(/Users/x/.config/gh/hosts.yml)",
+        "pattern": "Read(/home/matthew.davidson@gf.local/.config/gh/hosts.yml)",
         "threat": "T-003-credential-exfil"
       },
       {
@@ -632,19 +632,19 @@ exports[`settings/compiled snapshots > strict.json matches checked-in snapshot 1
         "threat": "T-018-supply-chain-submodule"
       },
       {
-        "pattern": "WebFetch(*pastebin.com*)",
+        "pattern": "WebFetch(domain:pastebin.com)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*paste.ee*)",
+        "pattern": "WebFetch(domain:paste.ee)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*requestbin.com*)",
+        "pattern": "WebFetch(domain:requestbin.com)",
         "threat": "T-005-network-exfil"
       },
       {
-        "pattern": "WebFetch(*transfer.sh*)",
+        "pattern": "WebFetch(domain:transfer.sh)",
         "threat": "T-005-network-exfil"
       },
       {
