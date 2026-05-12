@@ -1,0 +1,253 @@
+{
+  "permissions": {
+    "deny": [
+      {
+        "pattern": "Bash(printenv *)",
+        "threat": "T-001-secret-leak"
+      },
+      {
+        "pattern": "Bash(env)",
+        "threat": "T-001-secret-leak"
+      },
+      {
+        "pattern": "Bash(security find-generic-password *)",
+        "threat": "T-001-secret-leak"
+      },
+      {
+        "pattern": "Read(/home/USER/.ssh/**)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Read(/home/USER/.aws/credentials)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Read(/home/USER/.gnupg/**)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Bash(rm -rf /)",
+        "threat": "T-002-destructive-fs"
+      },
+      {
+        "pattern": "Bash(rm -rf /*)",
+        "threat": "T-002-destructive-fs"
+      },
+      {
+        "pattern": "Bash(rm -rf /home/USER)",
+        "threat": "T-002-destructive-fs"
+      },
+      {
+        "pattern": "Bash(rm -rf ~)",
+        "threat": "T-002-destructive-fs"
+      },
+      {
+        "pattern": "Bash(mkfs *)",
+        "threat": "T-002-destructive-fs"
+      },
+      {
+        "pattern": "Bash(dd * of=/dev/*)",
+        "threat": "T-002-destructive-fs"
+      },
+      {
+        "pattern": "Bash(shred -u *)",
+        "threat": "T-002-destructive-fs"
+      },
+      {
+        "pattern": "Bash(git push --force *)",
+        "threat": "T-004-branch-sabotage"
+      },
+      {
+        "pattern": "Bash(git push -f *)",
+        "threat": "T-004-branch-sabotage"
+      },
+      {
+        "pattern": "Read(/home/USER/.kube/**)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Read(/home/USER/.docker/config.json)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Read(/home/USER/.netrc)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Read(/home/USER/.config/gh/hosts.yml)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Read(/etc/sudoers)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Read(/etc/sudoers.d/**)",
+        "threat": "T-003-credential-exfil"
+      },
+      {
+        "pattern": "Bash(curl * | sh)",
+        "threat": "T-006-pipe-to-shell"
+      },
+      {
+        "pattern": "Bash(curl * | bash)",
+        "threat": "T-006-pipe-to-shell"
+      },
+      {
+        "pattern": "Bash(wget * | sh)",
+        "threat": "T-006-pipe-to-shell"
+      },
+      {
+        "pattern": "Bash(wget * | bash)",
+        "threat": "T-006-pipe-to-shell"
+      },
+      {
+        "pattern": "Bash(git filter-branch *)",
+        "threat": "T-008-history-rewrite"
+      },
+      {
+        "pattern": "Bash(git filter-repo *)",
+        "threat": "T-008-history-rewrite"
+      },
+      {
+        "pattern": "Edit(*.gitmodules)",
+        "threat": "T-018-supply-chain-submodule"
+      },
+      {
+        "pattern": "Write(*.gitmodules)",
+        "threat": "T-018-supply-chain-submodule"
+      },
+      {
+        "pattern": "WebFetch(domain:pastebin.com)",
+        "threat": "T-005-network-exfil"
+      },
+      {
+        "pattern": "WebFetch(domain:paste.ee)",
+        "threat": "T-005-network-exfil"
+      },
+      {
+        "pattern": "WebFetch(domain:requestbin.com)",
+        "threat": "T-005-network-exfil"
+      },
+      {
+        "pattern": "WebFetch(domain:transfer.sh)",
+        "threat": "T-005-network-exfil"
+      },
+      {
+        "pattern": "Bash(curl * pastebin.com*)",
+        "threat": "T-005-network-exfil"
+      },
+      {
+        "pattern": "Bash(curl * transfer.sh*)",
+        "threat": "T-005-network-exfil"
+      },
+      {
+        "pattern": "Bash(curl https://[0-9]*)",
+        "threat": "T-005-network-exfil"
+      },
+      {
+        "pattern": "Bash(wget https://[0-9]*)",
+        "threat": "T-005-network-exfil"
+      }
+    ],
+    "allow": []
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "name": "secret-guard"
+      },
+      {
+        "name": "keychain-guard"
+      },
+      {
+        "name": "mcp-secret-guard"
+      },
+      {
+        "name": "destructive-fs-guard"
+      },
+      {
+        "name": "git-destructive-guard"
+      },
+      {
+        "name": "sensitive-paths-guard"
+      },
+      {
+        "name": "dotfile-guard"
+      },
+      {
+        "name": "bash-structural-guard"
+      },
+      {
+        "name": "pipe-to-shell-guard"
+      },
+      {
+        "name": "branch-protection-guard"
+      },
+      {
+        "name": "commit-amend-pushed-guard"
+      },
+      {
+        "name": "submodule-injection-guard"
+      },
+      {
+        "name": "git-history-rewrite-guard"
+      },
+      {
+        "name": "webfetch-egress-guard"
+      },
+      {
+        "name": "bash-egress-guard"
+      },
+      {
+        "name": "task-tool-input-guard"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "name": "secret-leak-detector"
+      },
+      {
+        "name": "audit-tamper-detector"
+      },
+      {
+        "name": "untrusted-content-tagger"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "name": "behavioral-rule-enforcer"
+      }
+    ],
+    "SessionStart": [
+      {
+        "name": "claude-md-validator"
+      }
+    ],
+    "SubagentStop": [
+      {
+        "name": "audit-session-summary"
+      }
+    ],
+    "SubagentStart": [
+      {
+        "name": "subagent-spawn-guard"
+      },
+      {
+        "name": "agent-allowlist-enforcer"
+      }
+    ]
+  },
+  "schema": 1,
+  "ccsec_version": "0.1.0-alpha.0",
+  "audit": {
+    "log_path": "${HOME}/.claude/ccsec-audit.jsonl",
+    "egress_allowlist": [
+      "docs.anthropic.com",
+      "github.com",
+      "registry.npmjs.org",
+      "pypi.org"
+    ],
+    "verify_on_session_start": true
+  }
+}
