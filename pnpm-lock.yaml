@@ -96,7 +96,14 @@ importers:
 
   packages/rules: {}
 
-  packages/settings: {}
+  packages/settings:
+    devDependencies:
+      '@bitsummit/ccsec-cli':
+        specifier: workspace:*
+        version: link:../cli
+      '@bitsummit/ccsec-core':
+        specifier: workspace:*
+        version: link:../core
 
   tests/integration:
     devDependencies:
