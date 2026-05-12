@@ -1,6 +1,6 @@
 # @bitsummit/ccsec-settings
 
-Layered settings (base, overlays, profiles, compiled snapshots) for `claude-code-security` (BITSUMMIT Hardening). The data model behind the three shipped profiles.
+Layered settings (base, overlays, profiles, compiled artifacts) for `claude-code-security` (BITSUMMIT Hardening). The data model behind the three shipped profiles.
 
 ## Install
 
@@ -33,8 +33,7 @@ profiles/            # the three shipped profiles
   baseline.json      # solo dev; mostly warns
   strict.json        # team / shared infra; tighter egress
   regulated.json     # regulated environment; full overlays + agent allowlist
-compiled/            # snapshot of each profile after compilation; CI-checked
-__snapshots__/       # vitest snapshot tests for the compiler output
+compiled/            # one file per (profile, OS): <profile>.<os>.json (9 files)
 ```
 
 ## How profiles compose
@@ -48,12 +47,16 @@ The compiler is in `@bitsummit/ccsec-cli`; this package ships the data only.
 1. Decide whether the setting belongs in `base.json` (every profile gets it) or an overlay (some profiles opt in).
 2. Add the key. Document it in `docs/settings-reference.md`.
 3. Update the relevant profile(s) under `profiles/` to reference the overlay if applicable.
-4. Run `pnpm test` from this package; snapshot tests will fail. Inspect the diff. If correct, update with `pnpm test -u`.
-5. Run `pnpm build:settings` from the repo root to regenerate `compiled/`.
+4. Run `pnpm build:settings` from the repo root to regenerate `compiled/`.
+5. Run `pnpm test` from this package; verify the diff in `compiled/` reflects the policy change you intended.
 
-## Compiled snapshots
+## Compiled artifacts
 
-`compiled/<profile>.json` is checked into the repo so adopters can read what a profile resolves to without running the compiler. CI verifies these snapshots match the compiler output.
+`compiled/<profile>.<os>.json` is checked into the repo so PR reviewers can diff the **effective deny policy** (every overlay merged, every path token resolved) directly, rather than mentally re-running the compiler over a source diff. One file per supported OS (macOS, Linux, Windows) because path separators and the resolved form of `${HOME}` / `${TMP}` differ.
+
+Home-directory references resolve to a stable placeholder — `/Users/USER`, `/home/USER`, or `C:\Users\USER` — so artifacts are deterministic across contributors' machines. `USER` is a literal placeholder, not a real username; `ccsec apply` re-runs the compiler against the live `$HOME` / `%USERPROFILE%` at install time, so end-user `settings.json` has the actual home directory baked in.
+
+The test in `snapshot.test.ts` verifies that the checked-in files match a fresh invocation of the compiler. If you edit an overlay without running `pnpm build:settings`, the test fails. If someone changes compiler semantics, the test fails and the diff makes the behavioral change visible in PR review.
 
 ## Tests
 
