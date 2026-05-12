@@ -6,5 +6,9 @@
   "scripts": {
     "typecheck": "echo no ts in this package",
     "test": "vitest run"
+  },
+  "devDependencies": {
+    "@bitsummit/ccsec-cli": "workspace:*",
+    "@bitsummit/ccsec-core": "workspace:*"
   }
 }
