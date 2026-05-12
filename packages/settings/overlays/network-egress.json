@@ -1,10 +1,10 @@
 {
   "permissions": {
     "deny": [
-      { "pattern": "WebFetch(*pastebin.com*)",     "threat": "T-005-network-exfil" },
-      { "pattern": "WebFetch(*paste.ee*)",         "threat": "T-005-network-exfil" },
-      { "pattern": "WebFetch(*requestbin.com*)",   "threat": "T-005-network-exfil" },
-      { "pattern": "WebFetch(*transfer.sh*)",      "threat": "T-005-network-exfil" },
+      { "pattern": "WebFetch(domain:pastebin.com)",   "threat": "T-005-network-exfil" },
+      { "pattern": "WebFetch(domain:paste.ee)",       "threat": "T-005-network-exfil" },
+      { "pattern": "WebFetch(domain:requestbin.com)", "threat": "T-005-network-exfil" },
+      { "pattern": "WebFetch(domain:transfer.sh)",    "threat": "T-005-network-exfil" },
       { "pattern": "Bash(curl * pastebin.com*)",   "threat": "T-005-network-exfil" },
       { "pattern": "Bash(curl * transfer.sh*)",    "threat": "T-005-network-exfil" },
       { "pattern": "Bash(curl https://[0-9]*)",    "threat": "T-005-network-exfil" },

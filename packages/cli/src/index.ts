@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { compileCommand } from './commands/compile.js';
 import { applyCommand } from './commands/apply.js';
 import { doctorCommand } from './commands/doctor.js';
+import { runHookCommand } from './commands/run-hook.js';
 
 const PKG_VERSION = '0.1.0-alpha.0';
 const SETTINGS_ROOT_DEFAULT = new URL('../../settings', import.meta.url).pathname;
@@ -25,8 +26,8 @@ export async function main(argv: string[]): Promise<void> {
 
   program.command('apply')
     .requiredOption('--profile <name>')
-    .option('--claude-dir <path>', `${process.env.HOME}/.claude`)
-    .option('--os <os>', detectOs())
+    .option('--claude-dir <path>', 'path to .claude dir', `${process.env.HOME}/.claude`)
+    .option('--os <os>', 'macos | linux | windows', detectOs())
     .option('--settings-root <path>', 'path to packages/settings', SETTINGS_ROOT_DEFAULT)
     .option('--dry-run', '', false)
     .option('--force', 'override clobber guard', false)
@@ -52,12 +53,20 @@ export async function main(argv: string[]): Promise<void> {
     });
 
   program.command('doctor')
-    .option('--claude-dir <path>', `${process.env.HOME}/.claude`)
+    .option('--claude-dir <path>', 'path to .claude dir', `${process.env.HOME}/.claude`)
     .action(async (opts) => {
       const r = await doctorCommand({ claudeDir: opts.claudeDir });
       if (r.ok) { console.log('OK'); return; }
       for (const f of r.findings) console.error(`[${f.code}] ${f.message}`);
       process.exit(1);
+    });
+
+  program.command('run-hook')
+    .description('Run a single hook (reads context JSON from stdin; used by Claude Code hooks)')
+    .requiredOption('--name <name>', 'hook name (e.g. secret-guard)')
+    .requiredOption('--profile <profile>', 'active profile (baseline | strict | regulated)')
+    .action(async (opts) => {
+      await runHookCommand({ name: opts.name, profile: opts.profile });
     });
 
   await program.parseAsync(argv);
