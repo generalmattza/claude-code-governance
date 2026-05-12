@@ -9,6 +9,11 @@ export interface SecretHit {
   index: number;
 }
 
+// The patterns below are an opinionated starting set covering common cloud,
+// SaaS, and infra credentials. They are examples — prune entries your org
+// doesn't use (to reduce scan cost and false positives) and add any
+// org-specific token formats. Each removal also requires deleting the
+// corresponding test in tests/secret-patterns.test.ts.
 export const SECRET_PATTERNS: SecretPattern[] = [
   { label: 'aws_access_key_id', regex: /\bAKIA[0-9A-Z]{16}\b/g },
   { label: 'github_pat', regex: /\bghp_[A-Za-z0-9]{36}\b/g },
